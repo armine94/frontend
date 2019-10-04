@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+//import querystring from 'query-string'
 import {Progress} from 'reactstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import setAuthToken from '../setAuthToken';
 class Upload extends Component {
   constructor(props) {
     super(props);
       this.state = {
+        description: "",
         selectedFile: null,
         loaded:0,
-	ext: '.jpg'
+        ext: '',
+        choose: false,
       }
    
   }
@@ -38,8 +40,8 @@ class Upload extends Component {
   }*/
   maxSelectFile=(event)=>{
     let files = event.target.files
-        if (files.length > 3) { 
-           const msg = 'Only 3 images can be uploaded at a time'
+        if (files.length > 1) { 
+           const msg = 'Only 1 images can be uploaded at a time'
            event.target.value = null
            toast.warn(msg)
            return false;
@@ -48,7 +50,7 @@ class Upload extends Component {
  }
  checkFileSize=(event)=>{
   let files = event.target.files
-  let size = 2000000 
+  let size = 250000000 
   let err = []; 
   for(var x = 0; x<files.length; x++) {
   if (files[x].size > size) {
@@ -64,75 +66,90 @@ return true;
 }
 
 onExtetionHandler = event => {
+  this.setState({
+    choose: true, 
+   })
   if(event.target.value === "image") {
     this.setState({
      ext: ".jpg, .png, .gif" 
     })
-  } else if(event.target.value === "pdf") {
+  } else if(event.target.value === "text") {
     this.setState({
-     ext: ".pdf" 
+     ext: ".pdf, .css, .html, .txt, .odt" 
+    })
+  }
+  else if(event.target.value === "audio") {
+    this.setState({
+     ext: ".m4a" 
     })
   }
 }
 
+onDescriptionHendler = event => {
+  this.setState({
+    description: event.target.value
+  })
+}
+
 onChangeHandler=event=>{
-  var files = event.target.files
+  var files = event.target.files;
   if(this.maxSelectFile(event) &&    this.checkFileSize(event)){ //&& this.checkMimeType(event) 
   // if return true allow to setState
      this.setState({
      selectedFile: files,
-     loaded:0
+     loaded:0,
+     
   }) 
 	}
 }
   onClickHandler = () => {
     const data = new FormData() 
     for(var x = 0; x<this.state.selectedFile.length; x++) {
-      data.append('file', this.state.selectedFile[x])
+      data.append('file', this.state.selectedFile[x]);
     }
+    this.state.selectedFile.description = this.state.description;
 
     axios.post("/upload", data, {
 	
       onUploadProgress: ProgressEvent => {
         this.setState({
           loaded: (ProgressEvent.loaded / ProgressEvent.total*100),
-        });alert(this.state.loaded);
+        });
       },
     })
       .then(res => { // then print response status
-	//alert(res);
         toast.success('upload success')
       })
       .catch(err => { // then print response status
-//alert(err);
         toast.error('upload fail')
       })
     }
 
   render() {
     return (
-      <div class="container">
-	      <div class="row">
-      	  <div class="offset-md-3 col-md-6">
-               <div class="form-group files">
-                <label>Upload Your File </label>
-                <input type="file" class="form-control" accept={this.state.ext}  multiple onChange={this.onChangeHandler}/>
-              </div>  
-<div>
-	<input type="radio" name="gender" onClick={this.onExtetionHandler} value="image"/> Image<br/>
-        <input type="radio" name="gender" onClick={this.onExtetionHandler} value="pdf"/> Text<br/>
-        <input type="radio" name="gender" onClick={this.onExtetionHandler} value="video"/> Video<br/>
-</div>
-              <div class="form-group">
+      <div className="container">
+	      <div className="row">
+      	  <div className="offset-md-3 col-md-6">
+            <div className="form-group files">
+              <label>Upload Your File </label>
+              <input type="file" className="form-control" disabled={!this.state.choose} accept={this.state.ext}  multiple onChange={this.onChangeHandler}/>
+            </div>  
+            <div>
+              <input type="radio" name="gender" onClick={this.onExtetionHandler} value="image"/> Image<br/>
+              <input type="radio" name="gender" onClick={this.onExtetionHandler} value="text"/> Text<br/>
+              <input type="radio" name="gender" onClick={this.onExtetionHandler} value="audio"/> Audio<br/>
+            </div>
+            <div className="form-group">
               <ToastContainer />
               <Progress max="100" color="success" value={this.state.loaded} >{Math.round(this.state.loaded,2) }%</Progress>
-        
-              </div> 
+            </div> 
+            <div >
+              <input placeholder = "Enter your description" onChange={this.onDescriptionHendler} ></input><br/><div><p></p></div>
+            </div>
               
-              <button type="button" class="btn btn-success btn-block" onClick={this.onClickHandler}>Upload</button>
-
-	      </div>
-      </div>
+            <button type="button" className="btn btn-success btn-block" onClick={this.onClickHandler}>Upload</button>
+	        </div>
+        </div>
       </div>
     );
   }
