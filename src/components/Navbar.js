@@ -5,17 +5,31 @@ import { connect } from 'react-redux';
 import { logoutUser } from '../actions/authentication';
 import { withRouter } from 'react-router-dom';
 
+
+
 class Navbar extends Component {
+    constructor(props) {
+        super(props);
+           
+    }
 
     onLogout(e) {
         e.preventDefault();
         this.props.logoutUser(this.props.history);
     }
 
+    onClickHendler
+
     render() {
         const {isAuthenticated} = this.props.auth;
         const authLinks = (
             <ul className="navbar-nav ml-auto">
+                <Link  className="nav-link" to="/view" >
+                     View All
+                </Link>
+                <Link  className="nav-link" to="/upload" >
+                     Upload
+                </Link>
                 <a href="/" className="nav-link" onClick={this.onLogout.bind(this)}>
                     Logout
                 </a>

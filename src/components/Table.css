@@ -1,0 +1,26 @@
+td {
+    border: 1px solid grey;
+    margin: 10px;
+    padding: 10px;
+}
+
+#typeFile {
+    border: 1px solid grey;
+}
+#view {
+    margin:20;
+    padding: 20px;
+}
+
+#edit {
+    margin:0 20px 0 50px;
+}
+
+#image {
+    width: 30px;
+}
+.image {
+    margin: 10px;
+    width: 40px;
+    height: 40px;
+}
