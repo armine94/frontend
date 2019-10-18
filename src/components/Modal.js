@@ -1,32 +1,5 @@
 import React, {Component} from 'react';
 
-const backdropStyle = {  
-position: 'fixed',
-top: 0,
-bottom: 0,
-left: 0,
-right: 0,
-backgroundColor: 'rgba(0, 0, 0, 0.4 )',
-padding: 50,
-
-}
-
-const footerStyle = { 
-bottom:30,
-margin:200 ,
-}
-
-const modalStyle = {
-  backgroundColor: '#fff',
-  borderRadius: 5,
-  maxWidth: 700,
-  minHeight: 300,
-  margin: '0 auto',
-  padding: 30,
-  position: 'relative',
-}
-
-
 class Modal extends Component {
 	state = { 		
         val1: 'aa',
@@ -88,4 +61,4 @@ class Modal extends Component {
 }
 
 
-export default Modal;
+export {Modal};

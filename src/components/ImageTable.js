@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Button, Input } from 'reactstrap';
-import Modal from './Modal';
-import './Table.css'
+import {Modal} from './Modal';
+import '../css/Table.css'
 
+import {getImages} from './Image.DAO'
 
 import { ToastContainer, toast } from 'react-toastify';
 
@@ -20,45 +20,17 @@ class ImageTable extends Component {
     }
 
     componentDidMount() { 
-        axios.get("/upload/image",{
-            params: {
-              pageNumber: this.state.pageNumber,
-              size: this.state.size,
-            },	    
-        }).then(res => { // then print response status
-            const base = [];
-            for(let i = 0; i < this.state.size; i++) {
-                base[i] =  btoa(
-                    new Uint8Array( res.data.files[i].data).reduce(
-                    (data, byte) => data + String.fromCharCode(byte),
-                    '',
-                    ),
-                )    
-                const metadata = this.state.metadata;
-                const source = this.state.source;
-                source.push("data:;base64," + base[i]);
-                metadata.push(res.data.message[i].metadata)
-                this.setState({source}); 
-                this.setState({metadata});          
-            }     
-            
-        }).catch(err => { // then print response status
-            console.log(err);
+        getImages(this.state.pageNumber, this.state.size)
+        .then(result => {
+            let {metadata, source} = result; 
+            this.setState({metadata});  
+            this.setState({source}); 
         })
+        .catch( err => {
+            console.log(err);            
+        })     
     }
 
-    delete = () => {
-        axios.delete("/upload/image",{
-            params: {
-                name: "fileName",
-            },	    
-        }).then(res => { // then print response status
-           console.log(res);           
-        }).catch(err => { // then print response status
-            console.log(err);
-        })
-    }
-    
     draw = () => {
         return this.state.source.map((item, index) => {
             return (
@@ -67,6 +39,7 @@ class ImageTable extends Component {
                     <td id="image">
                         <img className="image" src={this.state.source[index]} />
                     </td>
+
                     <td>{this.state.metadata[index].FileSize} Kb</td>
                     <td>{this.state.metadata[index].ImageWidth}</td>
                     <td>{this.state.metadata[index].ImageHeight}</td>
@@ -121,4 +94,4 @@ class ImageTable extends Component {
     }
 }
 
-export default ImageTable;
+export  {ImageTable};

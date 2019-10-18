@@ -1,22 +1,24 @@
 import React, { Component } from 'react';
-import Upload from './Upload';
+import {Upload} from './Upload';
+import {Login} from './Login';
 
-export default class Home extends Component {
-  render() {
-    const isAuthenticated = localStorage.jwtToken;
 
-    const authLinks = (
-      <Upload/>
-    );
+class Home extends Component {
+    render() {
+        const authLinks = (
+            <Upload/>
+        );
 
-    const guestLinks = (
-      <div>Home</div>
-    )
+        const guestLinks = (
+            <Login/>
+        )
 
-    return (
-      <div >
-        {isAuthenticated ? authLinks : guestLinks}
-      </div>
-    );
-  }
+        return (
+            <div>
+              {sessionStorage.getItem('token') ? authLinks : guestLinks}
+            </div>
+        );
+    }
 }
+
+export {Home};

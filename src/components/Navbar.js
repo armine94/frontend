@@ -1,27 +1,29 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { logoutUser } from '../actions/authentication';
-import { withRouter } from 'react-router-dom';
-
-
+import {userLogout} from './Login.DAO';
 
 class Navbar extends Component {
     constructor(props) {
-        super(props);
-           
+        super(props);         
     }
 
     onLogout(e) {
-        e.preventDefault();
-        this.props.logoutUser(this.props.history);
+        const email = {"email": sessionStorage.getItem('email')};
+        userLogout(email)
+        .then(result => {
+            if(result == 200){
+                sessionStorage.removeItem('token'); 
+                sessionStorage.removeItem('email');              
+            } else {
+                alert(result);
+            }
+        })
+        .catch(err => {
+            alert(err)
+        })
     }
 
-    onClickHendler
-
     render() {
-        const {isAuthenticated} = this.props.auth;
         const authLinks = (
             <ul className="navbar-nav ml-auto">
                 <Link  className="nav-link" to="/view" >
@@ -30,9 +32,9 @@ class Navbar extends Component {
                 <Link  className="nav-link" to="/upload" >
                      Upload
                 </Link>
-                <a href="/" className="nav-link" onClick={this.onLogout.bind(this)}>
-                    Logout
-                </a>
+                <Link  className="nav-link" to="/login"  onClick={this.onLogout.bind(this)}>
+                     Logout
+                </Link>
             </ul>
         )
       const guestLinks = (
@@ -41,26 +43,18 @@ class Navbar extends Component {
                 <Link className="nav-link" to="/register">Sign Up</Link>
             </li>
             <li className="nav-item">
-                <Link className="nav-link" to="/login">Sign In</Link>
+                <Link className="nav-link" to="/login" onClick={this.sign}>Sign In</Link>
             </li>
         </ul>
       )
         return(
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                    {isAuthenticated ? authLinks : guestLinks}
+                    {sessionStorage.getItem('token')? authLinks : guestLinks}
                 </div>
             </nav>
         )
     }
 }
-Navbar.propTypes = {
-    logoutUser: PropTypes.func.isRequired,
-    auth: PropTypes.object.isRequired
-}
 
-const mapStateToProps = (state) => ({
-    auth: state.auth
-})
-
-export default connect(mapStateToProps, { logoutUser })(withRouter(Navbar));
+export {Navbar};

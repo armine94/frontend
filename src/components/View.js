@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import './Table.css'
-import ImageTable from './ImageTable';
+import '../css/Table.css'
+import {ImageTable} from './ImageTable';
 
 class View extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            fileType: "image"
+            fileType: "image",
         }
     }
 
@@ -31,14 +31,13 @@ class View extends Component {
         }
     }
 
-    render() {
+    render() {        
         return (
             <div>
                 <table className="table table-bordered">
                     <thead  className="text-center"> 
                         <tr>
                         <th scope="col">
-
                         </th>
                         <th scope="col">
                             <button type="button" className="btn btn-info" onClick={() => this.changeFyleType("image")}>Image</button>
@@ -47,7 +46,7 @@ class View extends Component {
                             <button type="button" className="btn btn-info" onClick={() => this.changeFyleType("video")}>Video</button>                        
                         </th>
                         <th scope="col">
-                            <button type="button" className="btn btn-info" onClick={() => this.changeFyleType("audeo")}>Audeo</button>
+                            <button type="button" className="btn btn-info" onClick={() => this.changeFyleType("audeo")}>Audio</button>
                         </th>
                         <th scope="col">
                             <button type="button" className="btn btn-info" onClick={() => this.changeFyleType("text")}>Text</button>
@@ -62,4 +61,4 @@ class View extends Component {
 
 }
 
-export default View;
+export {View};

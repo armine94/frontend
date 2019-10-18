@@ -1,0 +1,12 @@
+#container {
+    margin-top: 50px;
+    width: 400px;
+}
+
+#container  input{
+    width: 300px;
+}
+
+#container h2 {
+    margin-bottom: 40px;
+}
