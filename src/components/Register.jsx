@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import '../css/Registration.css'
-import {userRegister} from './Register.DAO';
+import {observer} from 'mobx-react';
+import {UserStore} from '../store/User.DAO';
 
+@observer
 class Register extends Component {
 
     constructor() {
@@ -15,6 +17,7 @@ class Register extends Component {
         }
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.userStore = new UserStore();
     }
 
     handleInputChange(e) {
@@ -31,21 +34,13 @@ class Register extends Component {
             password: this.state.password,
             password_confirm: this.state.password_confirm
         }
-        userRegister(user)
-        .then(result => {
-            if(result == 200) {
-                this.props.history.push('/login');
-            } else {
-                alert(result);
-            }
-        })
-        .catch(err => {
-            alert(err)
-        })
+        this.userStore.registrUser(user);
+        if(this.userStore.registr) {
+            this.props.history.push('/login');
+        }
     }
 
     render() {
-        const { errors } = this.state;
         return(
         <div className="container" id="container">
             <h2>Registration</h2>

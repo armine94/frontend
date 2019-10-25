@@ -9,19 +9,18 @@ import {Home} from './components/Home';
 import {Upload} from './components/Upload';
 import {View} from './components/View';
 
-
 class App extends Component {
     render() {
         return (
             <Router>
                 <div>
                     <Navbar/>
-                    <Route exact path="/" component={ Home } />
+                    <Route exact path="/" component={Home} />
                     <div className="container" >
                         <Route exact path="/register" component={ Register } />
                         <Route exact path="/login"  component={ Login } />
-                        <Route exact path="/view" component={View}/>
-                        <Route exact path="/upload" component={ Upload } />
+                        <Route exact path="/view" component={View} />
+                        <Route exact path="/upload" component={Upload}/>
                     </div>
                 </div>
             </Router>

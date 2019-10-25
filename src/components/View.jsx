@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import '../css/Table.css'
 import {ImageTable} from './ImageTable';
+import '../css/Table.css'
 
 class View extends Component {
     constructor(props) {

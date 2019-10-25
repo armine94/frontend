@@ -6,16 +6,16 @@ import {Login} from './Login';
 class Home extends Component {
     render() {
         const authLinks = (
-            <Upload/>
+             <Upload/>
         );
 
         const guestLinks = (
-            <Login/>
+             <Login/>
         )
 
         return (
-            <div>
-              {sessionStorage.getItem('token') ? authLinks : guestLinks}
+            <div >
+              {/* {sessionStorage.getItem('token') ? authLinks : guestLinks} */}
             </div>
         );
     }

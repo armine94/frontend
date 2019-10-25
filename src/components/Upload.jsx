@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import 'react-toastify/dist/ReactToastify.css';
 import {HOST} from '../config';
-import {uploadFile} from './Upload.DAO';
+import {observer} from 'mobx-react';
+import { UploadStore } from '../store/Upload.DAO';
 
+@observer 
 class Upload extends Component {
     constructor(props) {
         super(props);
@@ -16,6 +17,9 @@ class Upload extends Component {
             type: '',
             source: null,
         }
+
+        this.uploadStore = new UploadStore();
+
     }
 
     maxSelectFile = (event) => {
@@ -38,7 +42,7 @@ class Upload extends Component {
                 err[x] = files[x].type+'is too large, please pick a smaller file\n';
             }
         };
-        for(let z = 0; z<err.length; z++) {
+        for(let z = 0; z<err.length; z++) {// if message not same old that mean has error 
             event.target.value = null
         }
         return true;
@@ -86,7 +90,7 @@ class Upload extends Component {
             loaded:0,
         })
         let files = event.target.files;
-        if(this.maxSelectFile(event) &&    this.checkFileSize(event)){ 
+        if(this.maxSelectFile(event) &&    this.checkFileSize(event)){ //&& this.checkMimeType(event) 
             this.setState({
                 selectedFile: files,
                 loaded:0,
@@ -95,44 +99,24 @@ class Upload extends Component {
         }
     }
 
-  getUrl = () => {
-      switch (this.state.type) {
-          case "image":
-              return  HOST + "/upload/image";
-          case "audio":
-              return HOST + "/upload/audio";
-          case "text":
-              return HOST + "/upload/text";
-          default:
-      }
-      
-  }
-  onClickHandler = () => {
-      const url = this.getUrl();
-      const data = new FormData() 
-      data.append('file', this.state.selectedFile[0]);
-      data.append("description", this.state.description);
-      data.append("type", this.state.type);
-      uploadFile(url, data)
-      .then(result => {
-          if(result == 200) {
-              this.setState({
-                  isSelected: false,
-                  description: '',
-                  loaded: 100
-              })
-          } else {
-              alert(result)
-          }
-      })
-      .catch(err => {
-          alert(err)
-      })
-  }
+    onClickHandler = () => {
+        const data = new FormData() 
+        data.append('file', this.state.selectedFile[0]);
+        data.append("description", this.state.description);
+        data.append("type", this.state.type);
+        this.uploadStore.uploadImage(data);
+        this.setState({
+            loaded: 100,
+            isSelected: false
+        })
+    }
 
     render() {
+        const { uploadLoading } = this.uploadStore;
+
         return (
             <div className="container">
+                <div> <h1>{ this.props.name}</h1></div>
                 <div className="row">
                     <div className="offset-md-3 col-md-6">
                         <div className="form-group files">
@@ -160,6 +144,7 @@ class Upload extends Component {
                         <button type="button" className="btn btn-success btn-block" disabled={!this.state.isSelected} onClick={this.onClickHandler}>Upload</button>
                     </div>
                 </div>
+                <h1>{uploadLoading}</h1>
             </div>
         );
     }

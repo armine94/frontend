@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
-import {userLogin} from './Login.DAO';
+import { observer } from 'mobx-react';
+import {UserStore} from '../store/User.DAO';
 import '../css/Login.css'
- 
+
+@observer
 class Login extends Component {
     constructor() {
         super();
         this.state = {
             email: '',
-            password: ''
+            password: '',
         }
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.userStore = new UserStore();
     }
 
     handleInputChange(e) {
@@ -28,19 +31,12 @@ class Login extends Component {
         this.loginUser(user);
     }
 
-
     loginUser =  (user) => {
-        userLogin(user)
-            .then(log => {
-                if(log) {
-                    this.props.history.push('/upload')
-                } else {
-                    alert("error login")
-                }
-            })
-            .catch(err => {
-                alert(err)
-            })
+        this.userStore.loginUser(user);   
+        const { login } = this.userStore;
+        if(login) {
+            this.props.history.push('/upload')
+        }
     }
 
     render() {
