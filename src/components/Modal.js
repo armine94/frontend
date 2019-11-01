@@ -29,34 +29,25 @@ const modalStyle = {
 
 class Modal extends Component {
 	state = { 		
-        val1: 'aa',
-        prioritet: '',
-        startDate: '',
-    
+        name: this.props.name,
+        description: this.props.description,
     }
 
 	onClose = (e) => {
 		this.props.onClose && this.props.onClose(e);
 	}
 
-	onChange = (index) => (e) => {
-        e.preventDefault();
-		
-        if(e.target ) {            
+	onChange = (item) => (e) => {
+        this.onChange = this.onChange.bind(this);
+        if(e.target ) {
             this.setState({
-                [this.state.name]: e.target.value
+                [item]: e.target.value
             });
-        } 
-    }
-    myChange = (e) => {
-        this.setState({
-            val1: e.target.value
-        })
+        }
     }
 
 	render() {
-		const {name, prioritet, startDate, count} = this.props;
-		
+		const {name, size, width, height} = this.props;
 		if(this.props.show){ 
 			return null;
 		}
@@ -67,19 +58,17 @@ class Modal extends Component {
                         <table>
                             <tr>
                                 <td>
-                                    <input onChange={this.myChange} value={this.state.val1}></input>
+                                    <input placeholder="name" onChange={this.onChange("name")} value={this.state.name}></input>
                                 </td>
                                 <td>
-                                    <input></input>
-                                </td>
-                                <td>
-                                    <input></input>
+                                    <input placeholder="description" onChange={this.onChange("description")} value={this.state.description}></input>
                                 </td>
                             </tr>
                         </table>	
                     </div>
-					<div style={footerStyle}>			
-                   	  <button id="myButton" onClick={(e) => {this.onClose(e,)}}> Close </button>
+					<div style={footerStyle}>	
+                        <button id="myButton" onClick={this.props.list(this.state,this)}> Save </button>		
+                   	    <button id="myButton" onClick={(e) => {this.onClose(e,)}}> Close </button>
 					</div>
 				</div>
 			</div>

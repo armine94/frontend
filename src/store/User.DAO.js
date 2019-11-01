@@ -1,55 +1,58 @@
-import axios from 'axios';
-import {HOST} from '../config';
 import Cookies from 'universal-cookie';
 
 import {extendObservable, action} from 'mobx';
 import { APIClient } from '../APIClient/APIClient';
 
+let instance = null
+
 class UserStore {
+    initialState = {
+        status: '',
+        login: false,
+        register: '',
+    }
+
     constructor () {
-        extendObservable(this, {
-            status: '',
-            login: false,
-            logout: true,
-            registr: '',
-        });
+        extendObservable(this, this.initialState);
+        if (!instance) {
+            instance = this;
+        }
+        return instance;
     }
 
     @action
-    registrUser = (user) => {
-        APIClient.registrUser(user)
+    registerUser = (user, cb) => {
+        APIClient.registerUser(user)
         .then((res) => {
-            this.registr = true;
+            this.register = true;
+            cb && cb();
         })
         .catch((err) => console.log(err)
         );
     }
 
-    loginUser = (user) => {
+    @action
+    loginUser = (user, cb) => {
         APIClient.loginUser(user)
             .then((res) => {
                 this.login = true;
-                this.logout = false;
                 this.status = res.status;
-                const { token, email } = res.data;
-                const cookies = new Cookies();
-                cookies.set('token', token, { path: '/' });
-                sessionStorage.setItem('token', token);
+                const { email } = res.data;
                 sessionStorage.setItem('email', email);
+                cb && cb();
             })
             .catch((err) => console.log(err)
             );
     }
     
+    @action
     logoutUser = (email) => {
+        alert(55)
         APIClient.logoutUser(email)
             .then((res) => {
+                alert(1)
                 this.login = false;
-                this.logout = true;
-                cookies.remove('token');
-                console.log(cookies.get('token'));
-                sessionStorage.removeItem('token'); 
-                sessionStorage.removeItem('email');     
+                this.logout = true;    
             })
             .catch((err) => console.log(err)
             );
@@ -57,40 +60,3 @@ class UserStore {
 }
 
 export { UserStore };
-
-
-
-// const userLogin =  (user) => {
-//     const url = HOST + '/users/login';
-//     return axios.post(url, user, {Credentials: true})
-//     .then( res => {
-//         const { token, email } = res.data;
-//         const cookies = new Cookies();
-//         cookies.set('token', token, { path: '/' });
-//         //console.log(cookies.get('token'));
-//         sessionStorage.setItem('token', token);
-//         sessionStorage.setItem('email', email);
-//         return true;
-//     })
-//     .catch(err => {
-//         return false;
-//         alert(err)
-//     });
-// }
-
-// const userLogout =  (email) => {
-//     const url = HOST + '/users/logout';
-//     return axios.post(url, email)
-//     .then( res => {            
-//         return res.status;
-//     })
-//     .catch(err => {
-//         return false;
-//         alert(err)
-//     });
-// }
-
-//export {userLogin};
-//export {userLogout};
-
-

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import {HOST} from '../config';
 import {observer} from 'mobx-react';
 import { UploadStore } from '../store/Upload.DAO';
 
@@ -103,8 +102,8 @@ class Upload extends Component {
         const data = new FormData() 
         data.append('file', this.state.selectedFile[0]);
         data.append("description", this.state.description);
-        data.append("type", this.state.type);
-        this.uploadStore.uploadImage(data);
+        data.append("email", "email");
+        this.uploadStore.uploadImage(this.state.type, data, () => this.props.history.push('/login'));
         this.setState({
             loaded: 100,
             isSelected: false

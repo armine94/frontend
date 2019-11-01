@@ -2,18 +2,22 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import {UserStore} from '../store/User.DAO';
+import {UploadStore} from '../store/Upload.DAO';
+
 
 @observer
 class Navbar extends Component {
     constructor(props) {
         super(props); 
         this.userStore = new UserStore();    
+        this.uploadStore = new UploadStore();    
+
     }
 
     onLogout() {
         const email = {"email": sessionStorage.getItem('email')};
         this.userStore.logoutUser(email);
-        sessionStorage.removeItem('token'); 
+        sessionStorage.removeItem('email'); 
     }
 
     render() {
@@ -43,7 +47,7 @@ class Navbar extends Component {
         return(
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                    {sessionStorage.getItem('token') ? authLinks : guestLinks}
+                    {this.userStore.login && !this.uploadStore.err? authLinks : guestLinks}
                 </div>
             </nav>
         )

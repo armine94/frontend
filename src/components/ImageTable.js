@@ -9,23 +9,28 @@ import '../css/Pagination.css'
 class ImageTable extends Component {
     constructor(props){
         super(props);
+        this.imageStore = new ImageStore();
         this.state = {
+            name: this.imageStore.name,
             pageNumber: 1,
             disable: false,
             show: true,            
             size: 5,
-            
+            list: [
+                {
+                  name: 'aaa',
+                  description: 'bbb',
+                },
+              ],
         }
-
-        this.imageStore = new ImageStore();
     }
 
     componentDidMount() { 
         this.imageStore.getImages(this.state.pageNumber, this.state.size);   
     }
 
-    drowFields = () => {
-        const fields = ['', 'Image', 'Name', 'Size', 'Width', 'Height', '' ];
+    drawFields = () => {
+        const fields = ['', 'Image', 'Name', 'Size', 'Width', 'Height', 'Description' ];
         return fields.map((item, index) => {
             return (
                 <th key={index}>
@@ -35,7 +40,8 @@ class ImageTable extends Component {
         })
     }
 
-    draw = (name, path,  metadata) => {
+    draw = (name, description, path,  metadata) => {
+
         if( name && metadata){
             return metadata.map((item, index) => {
                 return (
@@ -48,30 +54,33 @@ class ImageTable extends Component {
                         <td>{item.FileSize} Kb</td>
                         <td>{item.ImageWidth}</td>
                         <td>{item.ImageHeight}</td>
+                        <td> desc</td>
                         <td scope="col" className="d-flex justify-content-around">
                             <button onClick={this.showModal} >Edit</button>
-                            <Modal  onClose={this.showModal} show={this.state.show}></Modal>
+                            <Modal  onClose={this.showModal} show={this.state.show} name={name[index]}></Modal>
                             <button onClick={this.delete}>Delete</button>
                         </td>
                     </tr>
                 )
             })
         }
-        
-  
     }
 
-    showModal = () =>{
+    showModal = () => {
         this.setState ({
         show: !this.state.show
         });
     }
 
     onpageChange (index, err) {
-        let prevPage = this.state.pageNumber;         
+        let prevPage = this.state.pageNumber; 
         switch (index) {
             case -1:
                 if(prevPage > 1) { 
+                    const data = {
+                        pageNumber: this.state.pageNumber - 1,
+                        size: this.state.size,
+                    }
                     this.imageStore.getImages(this.state.pageNumber - 1, this.state.size);
                     this.setState({
                         pageNumber: prevPage - 1,
@@ -85,6 +94,10 @@ class ImageTable extends Component {
                         disable: true
                     })
                 } else {
+                    const data = {
+                        pageNumber: this.state.pageNumber + 1,
+                        size: this.state.size,
+                    }
                     this.imageStore.getImages(this.state.pageNumber + 1, this.state.size);
                     this.setState({
                         pageNumber: prevPage + 1,
@@ -97,17 +110,20 @@ class ImageTable extends Component {
     }
 
     render() {
-        const { name, path, metadata, err } = this.imageStore;
+
+         const { name, description, path, metadata, err } = this.imageStore;
         return (
             <div>
+
                 <table className="table table-bordered">
                     <thead  className="text-center">
                         <tr>
-                            {this.drowFields()}
+                            {this.drawFields()}
                         </tr>
                     </thead>
                     <tbody>
-                    {this.draw(name, path, metadata)}
+
+                        {this.draw(name, description, path, metadata)}
                     </tbody>
                 </table>
                 <div className="pagination">
@@ -115,6 +131,7 @@ class ImageTable extends Component {
                     <button className="btn btn-info" onClick={ this.onpageChange.bind(this, 0, err) }> { this.state.pageNumber } </button>
                     <button className="btn" onClick={ this.onpageChange.bind(this, 1, err) }  disabled={ this.state.disable } > &raquo; </button>
                 </div>
+
             </div>
         )
     }

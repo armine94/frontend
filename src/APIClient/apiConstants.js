@@ -5,7 +5,7 @@ const apiConstants = {
     textUrl:  "http://localhost:54545/upload/text",
     userLoginUrl:      "http://localhost:54545/users/login",
     userLogoutUrl:     "http://localhost:54545/users/logout",
-    userRegistertUrl:  "http://localhost:54545/users/register",
+    userRegisterUrl:  "http://localhost:54545/users/register",
 }
 
 export {apiConstants};
