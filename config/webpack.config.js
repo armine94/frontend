@@ -124,20 +124,6 @@ module.exports = function(webpackEnv) {
                 customize: require.resolve(
                   'babel-preset-react-app/webpack-overrides'
                 ),
-                
-                // plugins: [
-                //   [
-                //     require.resolve('babel-plugin-named-asset-import'),
-                //     {
-                //       loaderMap: {
-                //         svg: {
-                //           ReactComponent:
-                //             '@svgr/webpack?-svgo,+titleProp,+ref![path]',
-                //         },
-                //       },
-                //     },
-                //   ],
-                // ],
                 cacheDirectory: true,
                 cacheCompression: false,
                 compact: isEnvProduction,
