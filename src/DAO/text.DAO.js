@@ -1,6 +1,5 @@
-
 import axios from 'axios';
-import { apiConfigs } from './apiConfigs'
+import { apiConfigs } from '../config/apiConfigs'
 
 export const textAPI = {
     uploadText(data) {

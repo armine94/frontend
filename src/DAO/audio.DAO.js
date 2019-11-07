@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {apiConfigs} from './apiConfigs'
+import {apiConfigs} from '../config/apiConfigs'
 export const audioAPI = {
     uploadAudio(data) {
         return axios.post(apiConfigs.audioUrl, data, { withCredentials: true })

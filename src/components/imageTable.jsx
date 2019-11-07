@@ -62,10 +62,6 @@ class ImageTable extends Component {
         switch (index) {
             case -1:
                 if (prevPage > 1) {
-                    const data = {
-                        pageNumber: this.state.pageNumber - 1,
-                        size: this.state.size,
-                    }
                     this.imageStore.getImages(this.state.pageNumber - 1, this.state.size);
                     this.setState({
                         pageNumber: prevPage - 1,
@@ -79,10 +75,6 @@ class ImageTable extends Component {
                         disable: true
                     })
                 } else {
-                    const data = {
-                        pageNumber: this.state.pageNumber + 1,
-                        size: this.state.size,
-                    }
                     this.imageStore.getImages(this.state.pageNumber + 1, this.state.size);
                     this.setState({
                         pageNumber: prevPage + 1,

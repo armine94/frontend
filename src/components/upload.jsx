@@ -102,7 +102,6 @@ class Upload extends Component {
         const data = new FormData() 
         data.append('file', this.state.selectedFile[0]);
         data.append("description", this.state.description);
-        data.append("email", "email");
         this.uploadStore.uploadImage(this.state.type, data, () => this.props.history.push('/login'));
         this.setState({
             loaded: 100,

@@ -2,6 +2,10 @@ To get you started you can simply clone the repository
 
 git clone [https://github.com/armine94/frontend]
 
+## Attention
+if you use `Mozilla Firefox`, you need install `gecko driver` 
+ypu can `download` here [https://github.com/mozilla/geckodriver/releases]
+
 ## Prerequisites
 you need `git` to `clone` the repository. You can get git from [http://git-scm.com/].
 you need `node`, you can `download` here [https://nodejs.org/en/download/]
@@ -15,7 +19,7 @@ The first `install` dependencies nmp ci , then
 1) for `development`
 ### `npm run dev`
 Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Open [http://localhost:3000] to view it in the browser.
 
 ### `npm run build`
 
@@ -30,14 +34,11 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 2) for `production` 
 ### `npm start`
 Runs the app in the development mode.<br />
-Open [http://localhost:5000](http://localhost:5000) to view it in the browser.
-
+Open [http://localhost:5000] to view it in the browser.
 
 ## Project structure
 
 ├── frontend
-|  ├── build -  Contains all components and logic files.
-|  |  |──static - all js files for production.
 |  ├── config -  Contains config files .
 |  ├── public -  Contains main index.js files.
 |  ├── scripts -  Contains scripts for start , build or test .
@@ -52,6 +53,8 @@ Open [http://localhost:5000](http://localhost:5000) to view it in the browser.
 |  |  |  ├──  register.js
 |  |  |  ├──  upload.js
 |  |  |  └──  view.js
+|  |  ├── config - Contains all project config.
+|  |  |  └──  config.js
 |  |  ├──  DAO Sending requests .
 |  |  |  ├──  apiConfigs.js
 |  |  |  ├──  audio.DAO.js
@@ -69,4 +72,3 @@ Open [http://localhost:5000](http://localhost:5000) to view it in the browser.
 ├── .gitignore
 ├── package.json
 └── README.md
-
