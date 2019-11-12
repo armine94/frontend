@@ -1,0 +1,9 @@
+.table__image {
+    margin: 5px;
+    width: 40px;
+    height: 40px;
+}
+
+.table__elem {
+    vertical-align: unset !important ;
+}

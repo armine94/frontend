@@ -1,0 +1,27 @@
+.register {
+    margin: 2vw 0 0 0 !important;
+}
+
+.register__title {
+    /* margin: 0 0 0 60px ; text-align: center; */
+    margin: 5vw 0 0 20vw !important;
+    color: white;
+    text-shadow: 2px2px 2px gray, 0 0 25px gray, 0 0 5px gray
+}
+
+.register__input {
+    min-width: 300px;
+    min-height: 35px;
+    margin: 0 0 0 200px !important;
+    text-align: center;
+    box-shadow: 5px 5px 5px grey;
+    border-radius: 13px;
+}
+
+.register__submit {
+    margin: 0 0 0 200px !important;
+    min-width: 300px;
+    font-size: 20px;
+    border-radius: 13px;
+    box-shadow: 5px 5px 5px grey; border-radius: 13px 
+}
