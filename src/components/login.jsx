@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { UserStore } from '../store/user.store';
+import '../css/login.css'
 
 @observer
 class Login extends Component {
@@ -38,36 +39,36 @@ class Login extends Component {
         return (
             <div className="container-fluid" id="container" >
                 <div className="row">
-                    <div className="offset-md-5 col-md-4">
-                    <h2>Login</h2>
-                    <form onSubmit={this.handleSubmit}>
-                        <div className="form-group">
-                            <input
-                                type="email"
-                                placeholder="Email"
-                                name="email"
-                                onChange={this.handleInputChange}
-                                value={this.state.email}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <input
-                                type="password"
-                                placeholder="Password"
-                                name="password"
-                                onChange={this.handleInputChange}
-                                value={this.state.password}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <button type="submit" className="btn btn-primary" >
-                                Login User
-                    </button>
-                        </div>
-                    </form>
+                    <div className="offset-md-2 col-md-4 bg-img">
+                        <h2 className='login__title'>Login</h2>
+                        <form className='login' onSubmit={this.handleSubmit}>
+                            <div className="form-group">
+                                <input className="login__input"
+                                    type="email"
+                                    placeholder="Email"
+                                    name="email"
+                                    onChange={this.handleInputChange}
+                                    value={this.state.email}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <input className="login__input"
+                                    type="password"
+                                    placeholder="Password"
+                                    name="password"
+                                    onChange={this.handleInputChange}
+                                    value={this.state.password}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <button type="submit" className="btn btn-primary login__submit" >
+                                    Login User
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-            </div>
-        </div >
+            </div >
         )
     }
 }

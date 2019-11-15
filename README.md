@@ -12,10 +12,13 @@ you need `npm`, you can `install`  npm install npm@latest -g
 In the `project` directory, you can `run`: 
 The first `install` dependencies nmp ci , then 
 
-1) for `development`
+1) Run project for `development`
+
 ### `npm run dev`
 Runs the app in the development mode.<br />
 Open [http://localhost:3000] to view it in the browser.
+
+2) Run project for `production` 
 
 ### `npm run build`
 
@@ -26,8 +29,6 @@ The build is minified and the filenames include the hashes.<br />
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-2) for `production` 
 ### `npm start`
 Runs the app in the development mode.<br />
 Open [http://localhost:5000] to view it in the browser.
@@ -35,36 +36,61 @@ Open [http://localhost:5000] to view it in the browser.
 ## Project structure
 
 ├── frontend
-|  ├── config -  Contains config files .
-|  ├── public -  Contains main index.js files.
-|  ├── scripts -  Contains scripts for start , build or test .
-|  |  ├──  build.js
-|  |  ├──  start.js
-|  |  └──  test.js
-|  ├── src -  Contains all components and logic files.
+|  ├── config - Contains config files .
+|  |  ├── jest
+|  |  |  ├── cssTransform.js
+|  |  |  └── fieTransform.js
+|  |  ├── env.js
+|  |  ├── modules.js
+|  |  ├── paths.js
+|  |  ├── webpack.config.js
+|  |  └── webpackDevServer.config.js
+|  ├── public - Contains main index.js files.
+|  ├── scripts - Contains scripts for start , build or test .
+|  |  ├──  build.js - create program for production mode
+|  |  └──  start.js - start program
+|  ├── src - Contains all components and logic files.
 |  |  ├── components - All components for this project.
-|  |  |  ├──  imageTable.js
-|  |  |  ├──  login.js
-|  |  |  ├──  navbar.js
-|  |  |  ├──  register.js
-|  |  |  ├──  upload.js
-|  |  |  └──  view.js
+|  |  |  ├──  audioTable.jsx
+|  |  |  ├──  home.jsx
+|  |  |  ├──  imageTable.jsx
+|  |  |  ├──  login.jsx
+|  |  |  ├──  modal.jsx
+|  |  |  ├──  navbar.jsx
+|  |  |  ├──  pagination.jsx
+|  |  |  ├──  player.jsx
+|  |  |  ├──  register.jsx
+|  |  |  ├──  upload.jsx
+|  |  |  ├──  videoTable.jsx
+|  |  |  └──  view.jsx
 |  |  ├── config - Contains all project config.
 |  |  |  └──  config.js
 |  |  ├──  DAO Sending requests .
-|  |  |  ├──  apiConfigs.js
 |  |  |  ├──  audio.DAO.js
+|  |  |  ├──  doc.DAO.js
 |  |  |  ├──  image.DAO.js
-|  |  |  ├──  text.DAO.js
-|  |  |  └──  user.DAO.js
+|  |  |  ├──  user.DAO.js
+|  |  |  └──  video.DAO.js
 |  |  ├── css - Css styles.
+|  |  |  ├──  home.js
+|  |  |  ├──  login.js
+|  |  |  ├──  modal.js
+|  |  |  ├──  pagination.js
+|  |  |  ├──  player.js
+|  |  |  ├──  registration.js
+|  |  |  ├──  table.js
+|  |  |  └──  upload.js
 |  |  ├── store - Mobx store for all components.
+|  |  |  ├──  audio.stor.js
+|  |  |  ├──  doc.stor.js
 |  |  |  ├──  image.stor.js
 |  |  |  ├──  upload.store.js
-|  |  |  └──  user.store.js
+|  |  |  ├──  user.store.js
+|  |  |  └──  video.store.js
 |  |  ├── app.js - Start .
-|  |  ├──  index.js - App component render this.
+|  |  └── index.js - App component render this.
 ├── .babelrc
 ├── .gitignore
+├── package-lock.json
 ├── package.json
 └── README.md

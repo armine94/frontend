@@ -1,11 +1,10 @@
 import { extendObservable, action } from 'mobx';
 import { imageAPI } from '../DAO/image.DAO';
 import { audioAPI } from '../DAO/audio.DAO';
-import { textAPI } from '../DAO/text.DAO';
+import { videoAPI } from '../DAO/video.DAO';
+import { docAPI } from '../DAO/doc.DAO';
 
-
-let instance = null
-
+let instance = null;
 class UploadStore {
     static initialState = {
         status: '',
@@ -26,51 +25,61 @@ class UploadStore {
     }
 
     @action
-    uploadImage = (type, data, cb) => {
+    uploadFile = (type, data, cb) => {
         this.uploadLoading = true;
         this.loaded = 0;
         switch (type) {
             case "image":
                 imageAPI.uploadImage(data)
-                    .then((res) => {
-                        this.loaded = 100;
-                        this.status = res.status;
-                        this.uploadLoading = false;
-                    })
-                    .catch((err) => {
-                        this.err = true;
-                        cb && cb()
-                    })
+                .then((res) => {
+                    this.loaded = 100;
+                    this.status = res.status;
+                    this.uploadLoading = false;
+                })
+                .catch((err) => {
+                    this.err = true;
+                    cb && cb()
+                })
                 break;
             case "audio":
                 audioAPI.uploadAudio(data)
-                    .then((res) => {
-                        this.loaded = 100;
-                        this.status = res.status;
-                        this.uploadLoading = false;
-                    })
-                    .catch((err) => {
-                        this.err = true;
-                        cb && cb()
-                    })
+                .then((res) => {
+                    this.loaded = 100;
+                    this.status = res.status;
+                    this.uploadLoading = false;
+                })
+                .catch((err) => {
+                    this.err = true;
+                    cb && cb()
+                })
                 break;
-            case "text":
-                textAPI.uploadText(data)
-                    .then((res) => {
-                        this.loaded = 100;
-                        this.status = res.status;
-                        this.uploadLoading = false;
-                    })
-                    .catch((err) => {
-                        this.err = true;
-                        cb && cb()
-                    })
+            case "video":
+                videoAPI.uploadVideo(data)
+                .then((res) => {
+                    this.loaded = 100;
+                    this.status = res.status;
+                    this.uploadLoading = false;
+                })
+                .catch((err) => {
+                    this.err = true;
+                    cb && cb()
+                })
+                break;
+            case "doc":
+                docAPI.uploadDoc(data)
+                .then((res) => {
+                    this.loaded = 100;
+                    this.status = res.status;
+                    this.uploadLoading = false;
+                })
+                .catch((err) => {
+                    this.err = true;
+                    cb && cb()
+                })
                 break;
             default:
                 break;
         }
-
-
     }
 }
 

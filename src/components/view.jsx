@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import {ImageTable} from './imageTable';
+import { ImageTable } from './imageTable';
+import { AudioTable } from './audioTable';
+import { VideoTable } from './videoTable';
 
 class View extends Component {
     constructor(props) {
@@ -14,42 +16,42 @@ class View extends Component {
             fileType: name
         });
     }
-    
+
     show = () => {
-        switch(this.state.fileType) {
-            case "image":          
-                return <ImageTable/>;
-            case "text": 
+        switch (this.state.fileType) {
+            case "image":
+                return <ImageTable />;
+            case "doc":
                 return <div> TextTable</div>;
-            case "video": 
-                return <div> VideoTable</div>;
-            case "audio": 
-                return <div> AudeoTable</div>;
+            case "video":
+                return <VideoTable/>;
+            case "audio":
+                return <AudioTable />;
             default:
-                return <ImageTable/>;            
+                return <ImageTable />;
         }
     }
 
-    render() {        
+    render() {
         return (
             <div>
                 <table className="table table-bordered">
-                    <thead  className="text-center"> 
+                    <thead className="text-center">
                         <tr>
-                        <th scope="col">
-                        </th>
-                        <th scope="col">
-                            <button type="button" className="btn btn-info" onClick={this.changeFileType("image")}>Image</button>
-                        </th>
-                        <th scope="col">
-                            <button type="button" className="btn btn-info" onClick={this.changeFileType("video")}>Video</button>                        
-                        </th>
-                        <th scope="col">
-                            <button type="button" className="btn btn-info" onClick={this.changeFileType("audio")}>Audio</button>
-                        </th>
-                        <th scope="col">
-                            <button type="button" className="btn btn-info" onClick={this.changeFileType("text")}>Text</button>
-                        </th> 
+                            <th scope="col">
+                            </th>
+                            <th scope="col">
+                                <button type="button" className="btn btn-info" onClick={this.changeFileType("image")}>Image</button>
+                            </th>
+                            <th scope="col">
+                                <button type="button" className="btn btn-info" onClick={this.changeFileType("video")}>Video</button>
+                            </th>
+                            <th scope="col">
+                                <button type="button" className="btn btn-info" onClick={this.changeFileType("audio")}>Audio</button>
+                            </th>
+                            <th scope="col">
+                                <button type="button" className="btn btn-info" onClick={this.changeFileType("text")}>Text</button>
+                            </th>
                         </tr>
                     </thead>
                 </table>
@@ -57,7 +59,6 @@ class View extends Component {
             </div>
         )
     }
-
 }
 
-export {View};
+export { View };

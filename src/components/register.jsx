@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { UserStore } from '../store/user.store';
+import '../css/registration.css'
 
 @observer
 class Register extends Component {
@@ -38,13 +39,13 @@ class Register extends Component {
 
     render() {
         return (
-            <div className="container" id="container">
+            <div className="container-fluid " id="container">
                 <div className="row">
-                    <div className="offset-md-5 col-md-2">
-                        <h2>Registration</h2>
-                        <form onSubmit={this.handleSubmit}>
+                    <div className="offset-md-2 col-md-2">
+                        <h2 className='register__title'>Registration</h2>
+                        <form className="register" onSubmit={this.handleSubmit}>
                             <div className="form-group">
-                                <input
+                                <input className="register__input"
                                     type="text"
                                     placeholder="Name"
                                     name="name"
@@ -53,7 +54,7 @@ class Register extends Component {
                                 />
                             </div>
                             <div className="form-group">
-                                <input
+                                <input className="register__input"
                                     type="email"
                                     placeholder="Email"
                                     name="email"
@@ -62,7 +63,7 @@ class Register extends Component {
                                 />
                             </div>
                             <div className="form-group">
-                                <input
+                                <input className="register__input"
                                     type="password"
                                     placeholder="Password"
                                     name="password"
@@ -71,7 +72,7 @@ class Register extends Component {
                                 />
                             </div>
                             <div className="form-group">
-                                <input
+                                <input className="register__input"
                                     type="password"
                                     placeholder="Confirm Password"
                                     name="password_confirm"
@@ -80,18 +81,16 @@ class Register extends Component {
                                 />
                             </div>
                             <div className="form-group">
-                                <button type="submit" className="btn btn-primary">
+                                <button type="submit" className="btn btn-primary register__submit">
                                     Register User
                                 </button>
                             </div>
                         </form>
                     </div>
                 </div>
-
             </div>
         )
     }
 }
-
 
 export { Register };

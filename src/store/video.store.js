@@ -1,8 +1,10 @@
 import { extendObservable, action } from 'mobx';
-import { imageAPI } from '../DAO/image.DAO';
+import { videoAPI } from '../DAO/video.DAO';
 
-let instance = null;
-class ImageStore {
+
+let instance = null
+
+class VideoStore {
     constructor() {
         extendObservable(this, {
             originalName: '',
@@ -10,6 +12,7 @@ class ImageStore {
             metadata: '',
             description: '',
             imageUrl: '',
+            videoUrl: '',
             name: '',
             err: false,
             disabled: false
@@ -21,9 +24,9 @@ class ImageStore {
     }
 
     @action
-    getImages = (pageNumber, size) => {
+    getVideos = (pageNumber, size) => {
         if (pageNumber > 0 && size > 0) {
-            imageAPI.getImages(pageNumber, size)
+            videoAPI.getVideos(pageNumber, size)
             .then((result) => {
                 if (result.data.name.length < 5) {
                     this.disabled = true;
@@ -31,17 +34,17 @@ class ImageStore {
                     this.status = result.status;
                     this.name = result.data.name;
                     this.imageUrl = result.data.imageUrl;
+                    this.videoUrl = result.data.videoUrl;
                     this.metadata = result.data.metadatas;
                     this.originalName = result.data.originalName;
                     this.description = result.data.description;
-                    console.log(req.data.imageUrl);
-                    
                 } else {
                     this.err = false;
                     this.disabled = false;
                     this.status = result.status;
                     this.name = result.data.name;
                     this.imageUrl = result.data.imageUrl;
+                    this.videoUrl = result.data.videoUrl;
                     this.metadata = result.data.metadatas;
                     this.originalName = result.data.originalName;
                     this.description = result.data.description
@@ -52,7 +55,7 @@ class ImageStore {
     };
 
     @action
-    updateImage = (index, originalName, name, description) => {
+    updateVideo = (index, originalName, name, description) => {
         if(originalName && name && index > -1){
             this.name[index] = name;
             this.description[index] = description;
@@ -61,7 +64,7 @@ class ImageStore {
                 newName: name,
                 newdescription: description,
             }
-            imageAPI.updateImage(data)
+            videoAPI.updateVideo(data)
             .then((result) => {
                 if (result.status === 200) {
                     this.status = result.status;
@@ -74,10 +77,12 @@ class ImageStore {
     };
 
     @action
-    deleteImage = (index, originalName, pageNumber, size) => {
+    deleteVideo = (index, originalName, pageNumber, size) => {
         if(originalName && index > -1 && pageNumber > 0 && size > 0){
+            this.name.splice(index, 1);
+            this.path.splice(index, 1);
             this.metadata.splice(index, 1);
-            imageAPI.deleteImage(originalName)
+            videoAPI.deleteVideo(originalName, pageNumber, size)
             .then((result) => {
                 if (result.status === 200) {
                     this.getImages(pageNumber,size);
@@ -91,4 +96,4 @@ class ImageStore {
     }
 }
 
-export { ImageStore }
+export { VideoStore }

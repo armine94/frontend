@@ -1,8 +1,8 @@
 import { extendObservable, action } from 'mobx';
-import { imageAPI } from '../DAO/image.DAO';
+import { audioAPI } from '../DAO/audio.DAO';
 
-let instance = null;
-class ImageStore {
+let instance = null
+class AudioStore {
     constructor() {
         extendObservable(this, {
             originalName: '',
@@ -10,6 +10,7 @@ class ImageStore {
             metadata: '',
             description: '',
             imageUrl: '',
+            audioUrl: '',
             name: '',
             err: false,
             disabled: false
@@ -21,9 +22,9 @@ class ImageStore {
     }
 
     @action
-    getImages = (pageNumber, size) => {
+    getAudios = (pageNumber, size) => {
         if (pageNumber > 0 && size > 0) {
-            imageAPI.getImages(pageNumber, size)
+            audioAPI.getAudios(pageNumber, size)
             .then((result) => {
                 if (result.data.name.length < 5) {
                     this.disabled = true;
@@ -31,17 +32,17 @@ class ImageStore {
                     this.status = result.status;
                     this.name = result.data.name;
                     this.imageUrl = result.data.imageUrl;
+                    this.audioUrl = result.data.audioUrl;
                     this.metadata = result.data.metadatas;
                     this.originalName = result.data.originalName;
                     this.description = result.data.description;
-                    console.log(req.data.imageUrl);
-                    
                 } else {
                     this.err = false;
                     this.disabled = false;
                     this.status = result.status;
                     this.name = result.data.name;
                     this.imageUrl = result.data.imageUrl;
+                    this.audioUrl = result.data.audioUrl;
                     this.metadata = result.data.metadatas;
                     this.originalName = result.data.originalName;
                     this.description = result.data.description
@@ -52,7 +53,7 @@ class ImageStore {
     };
 
     @action
-    updateImage = (index, originalName, name, description) => {
+    updateAudio = (index, originalName, name, description) => {
         if(originalName && name && index > -1){
             this.name[index] = name;
             this.description[index] = description;
@@ -61,7 +62,7 @@ class ImageStore {
                 newName: name,
                 newdescription: description,
             }
-            imageAPI.updateImage(data)
+            audioAPI.updateAudio(data)
             .then((result) => {
                 if (result.status === 200) {
                     this.status = result.status;
@@ -74,10 +75,10 @@ class ImageStore {
     };
 
     @action
-    deleteImage = (index, originalName, pageNumber, size) => {
+    deleteAudio = (index, originalName, pageNumber, size) => {
         if(originalName && index > -1 && pageNumber > 0 && size > 0){
             this.metadata.splice(index, 1);
-            imageAPI.deleteImage(originalName)
+            audioAPI.deleteAudio(originalName, pageNumber, size)
             .then((result) => {
                 if (result.status === 200) {
                     this.getImages(pageNumber,size);
@@ -91,4 +92,4 @@ class ImageStore {
     }
 }
 
-export { ImageStore }
+export { AudioStore }

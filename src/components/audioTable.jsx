@@ -1,26 +1,27 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-import { ImageStore } from '../store/image.store';
+import { AudioStore } from '../store/audio.store';
 import { Pagination } from './pagination'
 import { MyModal } from './modal'
 import '../css/table.css'
 
 @observer
-class ImageTable extends Component {
+class AudioTable extends Component {
     constructor(props) {
         super(props);
+        this.audioStore = new AudioStore();
         this.state = {
+            name: this.audioStore.name,
             pageNumber: 1,
             show: true,
             size: 5,
             index: -1,
         }
         this.deleteField.bind(this);
-        this.imageStore = new ImageStore();
     }
 
     componentDidMount = () => {
-        this.imageStore.getImages(this.state.pageNumber, this.state.size);
+        this.audioStore.getAudios(this.state.pageNumber, this.state.size);
     }
 
     showModal = (e) => {
@@ -30,35 +31,34 @@ class ImageTable extends Component {
         });
     }
 
-    onpageChange = (index, err) => () => {
-        const prevPage = this.state.pageNumber;
+    onpageChange = (index) => () => {
+        let prevPage = this.state.pageNumber;
         switch (index) {
             case -1:
                 if (prevPage > 1) {
-                    this.imageStore.getImages(this.state.pageNumber - 1, this.state.size);
+                    this.audioStore.getAudios(this.state.pageNumber - 1, this.state.size);
                     this.setState({
                         pageNumber: prevPage - 1,
                     })
                 }
                 break;
             case 1:
-                this.imageStore.getImages(this.state.pageNumber + 1, this.state.size);
+                this.audioStore.getAudios(this.state.pageNumber + 1, this.state.size);
                 this.setState({
                     pageNumber: prevPage + 1,
                 })
                 break;
             default:
-                break;
         }
     }
 
     deleteField = (e) => {
-        const { originalName } = this.imageStore;
-        this.imageStore.deleteImage(e.target.value, originalName[e.target.value], this.state.pageNumber, this.state.size);
+        const { originalName } = this.audioStore;
+        this.audioStore.deleteAudio(e.target.value, originalName[e.target.value], this.state.pageNumber, this.state.size);
     }
 
     drawFields = () => {
-        const fields = ['', 'Image', 'Name', 'Size', 'Width', 'Height', 'Description', ''];
+        const fields = ['', 'Image', 'Name', 'Size', 'Description', ''];
         return fields.map((item, index) => {
             return (
                 <th key={index}>
@@ -69,7 +69,7 @@ class ImageTable extends Component {
     }
 
     drawItem = () => {
-        const { name, originalName, description, imageUrl, metadata } = this.imageStore;
+        const { name, originalName, description, imageUrl, metadata } = this.audioStore;
         if (name && metadata) {
             return metadata.map((item, index) => {
                 return (
@@ -81,12 +81,10 @@ class ImageTable extends Component {
                             </td>
                             <td className="table__elem"  >{name[index]}</td>
                             <td className="table__elem">{item.FileSize} Kb</td>
-                            <td className="table__elem">{item.ImageWidth}</td>
-                            <td className="table__elem">{item.ImageHeight}</td>
                             <td className="table__elem">{description[index]}</td>
                             <td scope="col" className="d-flex justify-content-around table__elem">
                                 <button className="btn btn-success" value={index} onClick={this.showModal} >Edit</button>
-                                <MyModal onClose={this.showModal} fileType='image' show={this.state.show} index={this.state.index} originalName={originalName[this.state.index]} name={name[this.state.index]} description={description[this.state.index]}></MyModal>
+                                <MyModal fileType='audio' onClose={this.showModal} show={this.state.show} index={this.state.index} originalName={originalName[this.state.index]} name={name[this.state.index]} description={description[this.state.index]}></MyModal>
                                 <button className="btn btn-danger" value={index} onClick={this.deleteField}>Delete</button>
                             </td>
                         </tr>
@@ -107,10 +105,10 @@ class ImageTable extends Component {
                     </thead>
                     {this.drawItem()}
                 </table>
-                <Pagination disabled={this.imageStore.disabled} onpageChange={this.onpageChange} pageNumber={this.state.pageNumber} disabled={this.imageStore.disabled}/>
+                <Pagination  disabled={this.audioStore.disabled} onpageChange={this.onpageChange} pageNumber={this.state.pageNumber} />
             </div>
         )
     }
 }
 
-export { ImageTable };
+export { AudioTable };

@@ -1,8 +1,7 @@
 import {extendObservable, action} from 'mobx';
 import { userAPI } from '../DAO/user.DAO';
 
-let instance = null
-
+let instance = null;
 class UserStore {
     initialState = {
         status: '',
@@ -32,31 +31,30 @@ class UserStore {
     @action
     loginUser = (user, cb) => {
         userAPI.loginUser(user)
-            .then((res) => {
-                console.log(res);
-                if(res.status === 200) {
-                    this.login = true;
-                    this.status = res.status;
-                    const { email } = res.data;
-                    sessionStorage.setItem('email', email);
-                    cb && cb();
-                } else {
-                    this.status = res.status;
-                }
-            })
-            .catch((err) => console.log(err)
-            );
+        .then((res) => {
+            if(res.status === 200) {
+                this.login = true;
+                this.status = res.status;
+                const { email } = res.data;
+                sessionStorage.setItem('email', email);
+                cb && cb();
+            } else {
+                this.status = res.status;
+            }
+        })
+        .catch((err) => console.log(err)
+        );
     }
     
     @action
     logoutUser = (email) => {
         userAPI.logoutUser(email)
-            .then((res) => {
-                this.login = false;
-                this.logout = true;    
-            })
-            .catch((err) => console.log(err)
-            );
+        .then((res) => {
+            this.login = false;
+            this.logout = true;    
+        })
+        .catch((err) => console.log(err)
+        );
     }
 }
 

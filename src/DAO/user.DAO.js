@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { apiConfigs} from '../config/apiConfigs'
+import { apiConfigs} from '../config/apiConfigs';
 
 export const userAPI = {
     loginUser(user) {

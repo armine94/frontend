@@ -1,25 +1,34 @@
 {
-  "name": "mymobx",
+  "name": "frontend",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "start": "serve -s build",
     "dev": "nodemon scripts/start.js",
-    "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "build": "node scripts/build.js"
   },
   "dependencies": {
+    "axios": "^0.19.0",
+    "bootstrap": "^4.3.1",
+    "mobx": "^5.14.0",
+    "mobx-react": "^6.1.4",
+    "react": "^16.10.2",
+    "react-dom": "^16.10.2",
+    "react-modal": "^3.11.1",
+    "react-player": "^1.14.1",
+    "react-router-dom": "^5.1.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.4",
     "@babel/core": "^7.2.2",
     "@babel/plugin-proposal-class-properties": "^7.1.0",
     "@babel/plugin-proposal-decorators": "^7.1.0",
     "@babel/preset-env": "^7.2.3",
     "@babel/preset-react": "^7.0.0",
-    "axios": "^0.19.0",
     "babel-eslint": "10.0.3",
     "babel-loader": "^8.0.5",
     "babel-plugin-named-asset-import": "^0.3.4",
     "babel-preset-react-app": "^9.0.2",
-    "bootstrap": "^4.3.1",
     "css-loader": "2.1.1",
     "dotenv": "6.2.0",
     "dotenv-expand": "5.1.0",
@@ -28,16 +37,10 @@
     "html-webpack-plugin": "4.0.0-beta.5",
     "identity-obj-proxy": "^3.0.0",
     "mini-css-extract-plugin": "0.8.0",
-    "mobx": "^5.14.0",
-    "mobx-react": "^6.1.4",
-    "pnp-webpack-plugin": "1.5.0",
-    "react": "^16.10.2",
-    "react-dev-utils": "^9.1.0",
-    "react-dom": "^16.10.2",
-    "react-router-dom": "^5.1.2",
-    "react-scripts": "^3.2.0",
     "resolve": "1.12.0",
-    "webpack": "4.41.0"
+    "react-dev-utils": "^9.1.0",
+    "webpack": "4.41.0",
+    "react-scripts": "^3.2.0"
   },
   "eslintConfig": {
     "extends": "react-app"

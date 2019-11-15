@@ -39,14 +39,8 @@ function getServedPath(appPackageJson) {
 }
 
 const moduleFileExtensions = [
-  'web.mjs',
-  'mjs',
   'web.js',
   'js',
-  'web.ts',
-  'ts',
-  'web.tsx',
-  'tsx',
   'json',
   'web.jsx',
   'jsx',
@@ -65,7 +59,6 @@ const resolveModule = (resolveFn, filePath) => {
   return resolveFn(`${filePath}.js`);
 };
 
-// config after eject: we're in ./config/
 module.exports = {
   dotenv: resolveApp('.env'),
   appPath: resolveApp('.'),
@@ -75,7 +68,6 @@ module.exports = {
   appIndexJs: resolveModule(resolveApp, 'src/index'),
   appPackageJson: resolveApp('package.json'),
   appSrc: resolveApp('src'),
-  appTsConfig: resolveApp('tsconfig.json'),
   appJsConfig: resolveApp('jsconfig.json'),
   yarnLockFile: resolveApp('yarn.lock'),
   testsSetup: resolveModule(resolveApp, 'src/setupTests'),
@@ -84,7 +76,5 @@ module.exports = {
   publicUrl: getPublicUrl(resolveApp('package.json')),
   servedPath: getServedPath(resolveApp('package.json')),
 };
-
-
 
 module.exports.moduleFileExtensions = moduleFileExtensions;

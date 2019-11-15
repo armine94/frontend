@@ -1,0 +1,41 @@
+.modal__bg{
+    position: fixed;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 100px;
+    background-image: url('../images/bg.jpg');
+}
+
+.modal__content {
+    background-color: #fff;
+    border-radius: 5px;
+    max-Width: 56vw;
+    min-height: 500px;
+    margin: 0 auto;
+    padding: 30px;
+    position: relative;
+}
+
+.modal__header {
+    margin: 30px 45px 30px 80px;
+    text-shadow: 2px 2px 2px gray, 0 0 25px gray, 0 0 5px gray
+}
+
+.modal__margin {
+    margin: 0 0 0 100px;
+}
+
+.modal__input {
+    margin: 0px 0px 0px 20px;
+    min-height: 40px;
+}
+
+.modal__save {
+    margin: 17vw 0px 0px 20vw;
+}
+
+.modal__close {
+    margin: 17vw 0px 0px 1vw;
+}

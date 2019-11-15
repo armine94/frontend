@@ -1,13 +1,13 @@
 import axios from 'axios';
 import { apiConfigs } from '../config/apiConfigs'
 
-export const textAPI = {
-    uploadText(data) {
-        return axios.post(apiConfigs.textUrl, data, { withCredentials: true })
+export const docAPI = {
+    uploadDoc(data) {
+        return axios.post(apiConfigs.docUrl, data, { withCredentials: true })
     },
 
-    getTexts(pageNumber, size) {
-        return axios.get(apiConfigs.textUrl, {
+    getDocs(pageNumber, size) {
+        return axios.get(apiConfigs.docUrl, {
             withCredentials: true, params: {
                 pageNumber: pageNumber,
                 size: size
@@ -15,8 +15,8 @@ export const textAPI = {
         })
     },
 
-    deleteText(name) {
-        return axios.delete(apiConfigs.textUrl, {
+    deleteDoc(name) {
+        return axios.delete(apiConfigs.docUrl, {
             data: {
                 name: name
             }

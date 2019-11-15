@@ -7,6 +7,7 @@ import {Register} from './components/register';
 import {Login} from './components/login';
 import {Upload} from './components/upload';
 import {View} from './components/view';
+import {Home} from './components/home';
 
 class  App extends Component {
   render() {
@@ -14,6 +15,7 @@ class  App extends Component {
         <Router>
             <div>
                 <Navbar/>
+                <Route exact path="/" component={Home} />
                 <div className="container" >
                     <Route exact path="/register" component={ Register } />
                     <Route exact path="/login"  component={ Login } />
