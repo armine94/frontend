@@ -13,41 +13,25 @@ const resolve = require('resolve');
  */
 function getAdditionalModulePaths(options = {}) {
   const baseUrl = options.baseUrl;
-
-  // We need to explicitly check for null and undefined (and not a falsy value) because
-  // TypeScript treats an empty string as `.`.
   if (baseUrl == null) {
-    // If there's no baseUrl set we respect NODE_PATH
-    // Note that NODE_PATH is deprecated and will be removed
-    // in the next major release of create-react-app.
-
     const nodePath = process.env.NODE_PATH || '';
     return nodePath.split(path.delimiter).filter(Boolean);
   }
 
   const baseUrlResolved = path.resolve(paths.appPath, baseUrl);
 
-  // We don't need to do anything if `baseUrl` is set to `node_modules`. This is
-  // the default behavior.
   if (path.relative(paths.appNodeModules, baseUrlResolved) === '') {
     return null;
   }
 
-  // Allow the user set the `baseUrl` to `appSrc`.
   if (path.relative(paths.appSrc, baseUrlResolved) === '') {
     return [paths.appSrc];
   }
 
-  // If the path is equal to the root directory we ignore it here.
-  // We don't want to allow importing from the root directly as source files are
-  // not transpiled outside of `src`. We do allow importing them with the
-  // absolute path (e.g. `src/Components/Button.js`) but we set that up with
-  // an alias.
   if (path.relative(paths.appPath, baseUrlResolved) === '') {
     return null;
   }
 
-  // Otherwise, throw an error.
   throw new Error(
     chalk.red.bold(
       "Your project's `baseUrl` can only be set to `src` or `node_modules`." +
@@ -57,7 +41,6 @@ function getAdditionalModulePaths(options = {}) {
 }
 
 /**
- * Get webpack aliases based on the baseUrl of a compilerOptions object.
  *
  * @param {*} options
  */
@@ -99,7 +82,6 @@ function getJestAliases(options = {}) {
 }
 
 function getModules() {
-  // Check if TypeScript is setup
   const hasTsConfig = fs.existsSync(paths.appTsConfig);
   const hasJsConfig = fs.existsSync(paths.appJsConfig);
 
@@ -111,16 +93,11 @@ function getModules() {
 
   let config;
 
-  // If there's a tsconfig.json we assume it's a
-  // TypeScript project and set up the config
-  // based on tsconfig.json
   if (hasTsConfig) {
     const ts = require(resolve.sync('typescript', {
       basedir: paths.appNodeModules,
     }));
     config = ts.readConfigFile(paths.appTsConfig, ts.sys.readFile).config;
-    // Otherwise we'll check if there is jsconfig.json
-    // for non TS projects.
   } else if (hasJsConfig) {
     config = require(paths.appJsConfig);
   }
