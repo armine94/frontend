@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-import '../css/pagination.css'
 
 @observer
 class Pagination extends Component {

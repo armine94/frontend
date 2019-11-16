@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { UploadStore } from '../store/upload.store';
-import '../css/upload.css';
 
 @observer
 class Upload extends Component {

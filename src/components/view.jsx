@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { ImageTable } from './imageTable';
 import { AudioTable } from './audioTable';
-import { VideoTable } from './videoTable';
 
 class View extends Component {
     constructor(props) {
@@ -21,10 +20,6 @@ class View extends Component {
         switch (this.state.fileType) {
             case "image":
                 return <ImageTable />;
-            case "doc":
-                return <div> TextTable</div>;
-            case "video":
-                return <VideoTable/>;
             case "audio":
                 return <AudioTable />;
             default:

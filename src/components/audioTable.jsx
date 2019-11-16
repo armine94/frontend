@@ -3,7 +3,6 @@ import { observer } from 'mobx-react';
 import { AudioStore } from '../store/audio.store';
 import { Pagination } from './pagination'
 import { MyModal } from './modal'
-import '../css/table.css'
 
 @observer
 class AudioTable extends Component {

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { ImageStore } from '../store/image.store';
 import { AudioStore } from '../store/audio.store';
-import { VideoStore } from '../store/video.store';
-import '../css/modal.css';
 
 import Modal from 'react-modal';
 
@@ -19,7 +17,6 @@ class MyModal extends Component {
         this.onUpdate.bind(this);
         this.imageStore = new ImageStore();
         this.audioStore = new AudioStore();
-        this.videoStore = new VideoStore();
     }
 
     onClose = (e) => {
@@ -55,9 +52,6 @@ class MyModal extends Component {
                 break;
             case 'audio':
                 this.audioStore.updateAudio(this.props.index, this.props.originalName, this.state.name || this.props.name, this.state.description || this.props.description)
-                break;
-            case 'video':
-                this.videoStore.updateVideo(this.props.index, this.props.originalName, this.state.name || this.props.name, this.state.description || this.props.description)
                 break;
             default:
                 break;

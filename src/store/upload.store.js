@@ -1,8 +1,6 @@
 import { extendObservable, action } from 'mobx';
 import { imageAPI } from '../DAO/image.DAO';
 import { audioAPI } from '../DAO/audio.DAO';
-import { videoAPI } from '../DAO/video.DAO';
-import { docAPI } from '../DAO/doc.DAO';
 
 let instance = null;
 class UploadStore {
@@ -43,30 +41,6 @@ class UploadStore {
                 break;
             case "audio":
                 audioAPI.uploadAudio(data)
-                .then((res) => {
-                    this.loaded = 100;
-                    this.status = res.status;
-                    this.uploadLoading = false;
-                })
-                .catch((err) => {
-                    this.err = true;
-                    cb && cb()
-                })
-                break;
-            case "video":
-                videoAPI.uploadVideo(data)
-                .then((res) => {
-                    this.loaded = 100;
-                    this.status = res.status;
-                    this.uploadLoading = false;
-                })
-                .catch((err) => {
-                    this.err = true;
-                    cb && cb()
-                })
-                break;
-            case "doc":
-                docAPI.uploadDoc(data)
                 .then((res) => {
                     this.loaded = 100;
                     this.status = res.status;

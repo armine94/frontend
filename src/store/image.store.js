@@ -27,25 +27,15 @@ class ImageStore {
             .then((result) => {
                 if (result.data.name.length < 5) {
                     this.disabled = true;
-                    this.err = true;
-                    this.status = result.status;
-                    this.name = result.data.name;
-                    this.imageUrl = result.data.imageUrl;
-                    this.metadata = result.data.metadatas;
-                    this.originalName = result.data.originalName;
-                    this.description = result.data.description;
-                    console.log(req.data.imageUrl);
-                    
                 } else {
-                    this.err = false;
                     this.disabled = false;
-                    this.status = result.status;
-                    this.name = result.data.name;
-                    this.imageUrl = result.data.imageUrl;
-                    this.metadata = result.data.metadatas;
-                    this.originalName = result.data.originalName;
-                    this.description = result.data.description
                 }
+                this.status = result.status;
+                this.name = result.data.name;
+                this.imageUrl = result.data.imageUrl;
+                this.metadata = result.data.metadatas;
+                this.originalName = result.data.originalName;
+                this.description = result.data.description;
             })
             .catch((err) => this.err = true);
         }

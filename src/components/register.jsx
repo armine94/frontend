@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { UserStore } from '../store/user.store';
-import '../css/registration.css'
 
 @observer
 class Register extends Component {

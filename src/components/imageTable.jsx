@@ -3,7 +3,6 @@ import { observer } from 'mobx-react';
 import { ImageStore } from '../store/image.store';
 import { Pagination } from './pagination'
 import { MyModal } from './modal'
-import '../css/table.css'
 
 @observer
 class ImageTable extends Component {

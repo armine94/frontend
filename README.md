@@ -58,35 +58,20 @@ Open [http://localhost:5000] to view it in the browser.
 |  |  |  ├──  modal.jsx
 |  |  |  ├──  navbar.jsx
 |  |  |  ├──  pagination.jsx
-|  |  |  ├──  player.jsx
 |  |  |  ├──  register.jsx
 |  |  |  ├──  upload.jsx
-|  |  |  ├──  videoTable.jsx
 |  |  |  └──  view.jsx
 |  |  ├── config - Contains all project config.
 |  |  |  └──  config.js
 |  |  ├──  DAO Sending requests .
 |  |  |  ├──  audio.DAO.js
-|  |  |  ├──  doc.DAO.js
 |  |  |  ├──  image.DAO.js
-|  |  |  ├──  user.DAO.js
-|  |  |  └──  video.DAO.js
-|  |  ├── css - Css styles.
-|  |  |  ├──  home.js
-|  |  |  ├──  login.js
-|  |  |  ├──  modal.js
-|  |  |  ├──  pagination.js
-|  |  |  ├──  player.js
-|  |  |  ├──  registration.js
-|  |  |  ├──  table.js
-|  |  |  └──  upload.js
+|  |  |  └──  user.DAO.js
 |  |  ├── store - Mobx store for all components.
 |  |  |  ├──  audio.stor.js
-|  |  |  ├──  doc.stor.js
 |  |  |  ├──  image.stor.js
 |  |  |  ├──  upload.store.js
-|  |  |  ├──  user.store.js
-|  |  |  └──  video.store.js
+|  |  |  └──  user.store.js
 |  |  ├── app.js - Start .
 |  |  └── index.js - App component render this.
 ├── .babelrc
