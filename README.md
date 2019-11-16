@@ -38,44 +38,44 @@ Open [http://localhost:5000] to view it in the browser.
 ├── frontend
 |  ├── config - Contains config files .
 |  |  ├── jest
-|  |  |  ├── cssTransform.js
-|  |  |  └── fieTransform.js
-|  |  ├── env.js
-|  |  ├── modules.js
-|  |  ├── paths.js
-|  |  ├── webpack.config.js
-|  |  └── webpackDevServer.config.js
+|  |  |  ├── cssTransform.js -  transform config option to specify how css are transformed.
+|  |  |  └── fieTransform.js -  Transform config option to specify how assets are transformed.
+|  |  ├── env.js - The environment variables configuration
+|  |  ├── modules.js - Modules configuration 
+|  |  ├── paths.js - Paths configuration
+|  |  ├── webpack.config.js - webpack configuration 
+|  |  └── webpackDevServer.config.js - webpack dev server configuration
 |  ├── public - Contains main index.js files.
 |  ├── scripts - Contains scripts for start , build or test .
 |  |  ├──  build.js - create program for production mode
 |  |  └──  start.js - start program
 |  ├── src - Contains all components and logic files.
 |  |  ├── components - All components for this project.
-|  |  |  ├──  audioTable.jsx
-|  |  |  ├──  home.jsx
-|  |  |  ├──  imageTable.jsx
-|  |  |  ├──  login.jsx
-|  |  |  ├──  modal.jsx
-|  |  |  ├──  navbar.jsx
-|  |  |  ├──  pagination.jsx
-|  |  |  ├──  register.jsx
-|  |  |  ├──  upload.jsx
-|  |  |  └──  view.jsx
+|  |  |  ├──  audioTable.jsx - show audio file, edit, delete.  
+|  |  |  ├──  home.jsx - show home page.
+|  |  |  ├──  imageTable.jsx - show image file, edit, delete. 
+|  |  |  ├──  login.jsx - login user.
+|  |  |  ├──  modal.jsx - show edit modal. 
+|  |  |  ├──  navbar.jsx - show sign up and sign in button, when user logged show view all, upload and logout button
+|  |  |  ├──  pagination.jsx - Change page number and get new data 
+|  |  |  ├──  register.jsx - User registration
+|  |  |  ├──  upload.jsx - upload new file
+|  |  |  └──  view.jsx - show file
 |  |  ├── config - Contains all project config.
-|  |  |  └──  config.js
+|  |  |  └──  config.js - Api configuration for send and get data
 |  |  ├──  DAO Sending requests .
-|  |  |  ├──  audio.DAO.js
-|  |  |  ├──  image.DAO.js
-|  |  |  └──  user.DAO.js
+|  |  |  ├──  audio.DAO.js - Add, get, update, delete audio file requests
+|  |  |  ├──  image.DAO.js - Add, get, update, delete image file requests
+|  |  |  └──  user.DAO.js - User registration, login and logout request
 |  |  ├── store - Mobx store for all components.
-|  |  |  ├──  audio.stor.js
-|  |  |  ├──  image.stor.js
-|  |  |  ├──  upload.store.js
-|  |  |  └──  user.store.js
+|  |  |  ├──  audio.stor.js - Store for audio file
+|  |  |  ├──  image.stor.js - Store for image file
+|  |  |  ├──  upload.store.js - Store for uploading file
+|  |  |  └──  user.store.js - Store or user
 |  |  ├── app.js - Start .
 |  |  └── index.js - App component render this.
-├── .babelrc
-├── .gitignore
+├── .babelrc - babel configuration
+├── .gitignore 
 ├── package-lock.json
-├── package.json
+├── package.json 
 └── README.md
