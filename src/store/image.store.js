@@ -66,7 +66,6 @@ class ImageStore {
     @action
     deleteImage = (index, originalName, pageNumber, size) => {
         if(originalName && index > -1 && pageNumber > 0 && size > 0){
-            this.metadata.splice(index, 1);
             imageAPI.deleteImage(originalName)
             .then((result) => {
                 if (result.status === 200) {
@@ -81,4 +80,4 @@ class ImageStore {
     }
 }
 
-export { ImageStore }
+export { ImageStore };

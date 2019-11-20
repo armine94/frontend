@@ -1,8 +1,7 @@
+import Modal from 'react-modal';
 import React, { Component } from 'react';
 import { ImageStore } from '../store/image.store';
 import { AudioStore } from '../store/audio.store';
-
-import Modal from 'react-modal';
 
 class MyModal extends Component {
     constructor(props) {
@@ -99,6 +98,5 @@ class MyModal extends Component {
         );
     }
 }
-
 
 export { MyModal };

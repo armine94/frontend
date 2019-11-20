@@ -1,7 +1,7 @@
+import { UserStore } from '../store/user.store';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react';
-import { UserStore } from '../store/user.store';
 
 @observer
 class Navbar extends Component {
@@ -10,7 +10,7 @@ class Navbar extends Component {
         this.userStore = new UserStore();
     }
 
-    onLogout() {
+    onLogout = () => {
         const email = { "email": sessionStorage.getItem('email') };
         this.userStore.logoutUser(email);
         sessionStorage.removeItem('email');
@@ -25,27 +25,34 @@ class Navbar extends Component {
                 <Link className="nav-link" to="/upload" >
                     Upload
                 </Link>
-                <Link className="nav-link" to="/login" onClick={this.onLogout.bind(this)}>
+                <Link className="nav-link" to="/login" onClick={this.onLogout}>
                     Logout
                 </Link>
             </ul>
         )
+
         const guestLinks = (
             <ul className="navbar-nav ml-auto bg-light rounded-top rounded-bottom" >
                 <li className="nav-item">
                     <Link className="nav-link" to="/register">Sign Up</Link>
                 </li>
                 <li className="nav-item">
-                    <Link className="nav-link" to="/login" onClick={this.sign}>Sign In</Link>
+                    <Link className="nav-link" to="/login">Sign In</Link>
                 </li>
             </ul>
         )
+
         return (
-            <nav className="navbar navbar-expand-lg navbar-light " >
-                <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                    {this.userStore.login ? authLinks : guestLinks}
-                </div>
-            </nav>
+            <div>
+                <nav className="navbar navbar-expand-lg navbar-expand-sm navbar-expand navbar-expand-md navbar-light " >
+                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                        <div id="drawerOpener" onClick={this.changeClassName}>
+                            <i className="fas fa-bars " ></i>
+                        </div>
+                        {this.userStore.login || sessionStorage.getItem('email') ? authLinks : guestLinks}
+                    </div>
+                </nav>
+            </div>
         )
     }
 }

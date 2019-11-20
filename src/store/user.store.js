@@ -4,9 +4,10 @@ import { userAPI } from '../DAO/user.DAO';
 let instance = null;
 class UserStore {
     initialState = {
+        email: '',
         status: '',
-        login: false,
-        register: '',
+        login: '',
+        error: '',
     }
 
     constructor () {
@@ -21,11 +22,9 @@ class UserStore {
     registerUser = (user, cb) => {
         userAPI.registerUser(user)
         .then((res) => {
-            this.register = true;
             cb && cb();
         })
-        .catch((err) => console.log(err)
-        );
+        .catch((error) => this.error = error);
     }
 
     @action
@@ -35,26 +34,27 @@ class UserStore {
             if(res.status === 200) {
                 this.login = true;
                 this.status = res.status;
-                const { email } = res.data;
-                sessionStorage.setItem('email', email);
+                this.email = res.data.email;
+                sessionStorage.setItem('email', res.data.email);
                 cb && cb();
             } else {
                 this.status = res.status;
             }
         })
-        .catch((err) => console.log(err)
-        );
+        .catch((error) => this.error = error);
     }
     
     @action
     logoutUser = (email) => {
         userAPI.logoutUser(email)
         .then((res) => {
-            this.login = false;
-            this.logout = true;    
+            if(res.data === 'Ok') {
+                sessionStorage.removeItem('email');
+                this.login = false;
+                this.email = "";
+            }
         })
-        .catch((err) => console.log(err)
-        );
+        .catch((error) => this.error = error);
     }
 }
 

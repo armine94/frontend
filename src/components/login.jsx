@@ -38,9 +38,12 @@ class Login extends Component {
         return (
             <div className="container-fluid" id="container" >
                 <div className="row">
-                    <div className="offset-md-2 col-md-4 bg-img">
-                        <h2 className='login__title'>Login</h2>
+                    <div className="bg-img">
+
                         <form className='login' onSubmit={this.handleSubmit}>
+                            <div className='login__title'>
+                                <h2 >Login</h2>
+                            </div>
                             <div className="form-group">
                                 <input className="login__input"
                                     type="email"
@@ -61,8 +64,8 @@ class Login extends Component {
                             </div>
                             <div className="form-group">
                                 <button type="submit" className="btn btn-primary login__submit" >
-                                    Login User
-                                </button>
+                                    Login
+                            </button>
                             </div>
                         </form>
                     </div>

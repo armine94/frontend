@@ -14,7 +14,6 @@ class Upload extends Component {
             choose: false,
             isSelected: false,
             type: '',
-            source: null,
         }
         this.uploadStore = new UploadStore();
     }
@@ -22,7 +21,6 @@ class Upload extends Component {
     maxSelectFile = (event) => {
         let files = event.target.files
         if (files.length > 1) {
-            const msg = 'Only 1 images can be uploaded at a time';
             event.target.value = null;
             return false;
         }
@@ -30,17 +28,11 @@ class Upload extends Component {
     }
 
     checkFileSize = (event) => {
-        let files = event.target.files
-        let size = 250000000
-        let err = [];
-        for (let x = 0; x < files.length; x++) {
-            if (files[x].size > size) {
-                err[x] = files[x].type + 'is too large, please pick a smaller file\n';
-            }
-        };
-        for (let z = 0; z < err.length; z++) {// if message not same old that mean has error 
+        const files = event.target.files;
+        const size = 25000000;
+        if (files[0].size > size) {
             event.target.value = null
-        }
+        }       
         return true;
     }
 
@@ -49,9 +41,7 @@ class Upload extends Component {
             loaded: 0,
         })
         let object = this.refs.chouseFile;
-        let object1 = this.refs.description;
         object.value = "";
-        object1.value = "";
 
         this.setState({
             choose: true,
@@ -75,14 +65,6 @@ class Upload extends Component {
                     type: "audio"
                 })
                 break;
-
-            case 'doc':
-                this.setState({
-                    ext: ".pdf, .css, .html, .txt, .odt",
-                    type: "doc"
-                })
-                break;
-
             default:
                 break;
         }
@@ -117,6 +99,10 @@ class Upload extends Component {
             loaded: 100,
             isSelected: false
         })
+        const object = this.refs.chouseFile;
+        const object1 = this.refs.description;
+        object.value = "";
+        object1.value = "";
     }
 
     render() {
@@ -138,11 +124,9 @@ class Upload extends Component {
                         <div className="upload__radio">
                             <input type="radio" name="radio" onClick={this.onExtetionHandler} value="image" /> Image<br />
                             <input type="radio" name="radio" onClick={this.onExtetionHandler} value="audio" /> Audio<br />
-                            <input type="radio" name="radio" onClick={this.onExtetionHandler} value="video" /> Video<br />
-                            <input type="radio" name="radio" onClick={this.onExtetionHandler} value="doc" /> Document<br />
                         </div>
                         <div className="form-group upload__radio">
-                            {this.state.loaded} %
+                          Load {this.state.loaded} %
                         </div>
                         <div >
                             <input className="upload__input" ref="description" placeholder="Enter your description" onChange={this.onDescriptionHendler} ></input><br /><div><p></p></div>

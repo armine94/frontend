@@ -38,7 +38,7 @@ class ImageTable extends Component {
                     this.setState({
                         pageNumber: prevPage - 1,
                     })
-                }
+                } 
                 break;
             case 1:
                 this.imageStore.getImages(this.state.pageNumber + 1, this.state.size);

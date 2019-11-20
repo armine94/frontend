@@ -29,9 +29,8 @@ class AudioStore {
                 if (result.data.name.length < 5) {
                     this.disabled = true;
                 } else {
-                    this.err = false;
-                }
                 this.disabled = false;
+                }
                 this.status = result.status;
                 this.name = result.data.name;
                 this.imageUrl = result.data.imageUrl;
@@ -69,11 +68,10 @@ class AudioStore {
     @action
     deleteAudio = (index, originalName, pageNumber, size) => {
         if(originalName && index > -1 && pageNumber > 0 && size > 0){
-            this.metadata.splice(index, 1);
             audioAPI.deleteAudio(originalName, pageNumber, size)
             .then((result) => {
                 if (result.status === 200) {
-                    this.getImages(pageNumber,size);
+                    this.getAudios(pageNumber,size);
                     this.status = result.status;
                 } else {
                     this.err = true;
@@ -84,4 +82,4 @@ class AudioStore {
     }
 }
 
-export { AudioStore }
+export { AudioStore };
