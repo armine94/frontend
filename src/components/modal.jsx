@@ -1,7 +1,7 @@
-import Modal from 'react-modal';
-import React, { Component } from 'react';
 import { ImageStore } from '../store/image.store';
 import { AudioStore } from '../store/audio.store';
+import React, { Component } from 'react';
+import Modal from 'react-modal';
 import '../css/modal.css';
 
 class MyModal extends Component {

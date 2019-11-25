@@ -1,7 +1,7 @@
+import { AudioStore } from '../store/audio.store';
+import { Pagination } from './pagination';
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-import { AudioStore } from '../store/audio.store';
-import { Pagination } from './pagination'
 import { MyModal } from './modal';
 import '../css/table.css';
 
