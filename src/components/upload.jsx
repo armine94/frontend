@@ -1,19 +1,20 @@
+import { UploadStore } from '../store/upload.store';
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-import { UploadStore } from '../store/upload.store';
+import '../css/upload.css';
 
 @observer
 class Upload extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            description: '',
             selectedFile: null,
-            loaded: 0,
-            ext: '',
-            choose: false,
             isSelected: false,
+            description: '',
+            isActive: false,
+            loaded: 0,
             type: '',
+            ext: '',
         }
         this.uploadStore = new UploadStore();
     }
@@ -32,20 +33,16 @@ class Upload extends Component {
         const size = 25000000;
         if (files[0].size > size) {
             event.target.value = null
-        }       
+        }
         return true;
     }
 
     onExtetionHandler = event => {
         this.setState({
             loaded: 0,
+            isActive: true,
         })
-        let object = this.refs.chouseFile;
-        object.value = "";
 
-        this.setState({
-            choose: true,
-        })
         switch (event.target.value) {
             case "image":
                 this.setState({
@@ -61,7 +58,7 @@ class Upload extends Component {
                 break;
             case 'audio':
                 this.setState({
-                    ext: ".m4a",
+                    ext: ".m4a, .mp3",
                     type: "audio"
                 })
                 break;
@@ -81,7 +78,7 @@ class Upload extends Component {
             loaded: 0,
         })
         const files = event.target.files;
-        if (this.maxSelectFile(event) && this.checkFileSize(event)) { //&& this.checkMimeType(event) 
+        if (this.maxSelectFile(event) && this.checkFileSize(event)) {
             this.setState({
                 selectedFile: files,
                 loaded: 0,
@@ -94,7 +91,7 @@ class Upload extends Component {
         const data = new FormData()
         data.append('file', this.state.selectedFile[0]);
         data.append("description", this.state.description);
-        this.uploadStore.uploadFile(this.state.type, data, () => this.props.history.push('/login'));
+        this.uploadStore.uploadFile(this.state.type, data, () => this.props.history.push('/upload'), () => window.location.href = '/');
         this.setState({
             loaded: 100,
             isSelected: false
@@ -109,29 +106,29 @@ class Upload extends Component {
         return (
             <div className="container">
                 <div className="row">
-                    <div className="offset-md-3 col-md-6 cok-sm-8">
-                        <div className="form-group files">
-                            <label className="upload__label">Upload Your File </label>
-                            <input
-                                ref="chouseFile"
-                                type="file"
-                                className="form-control"
-                                disabled={!this.state.choose}
-                                accept={this.state.ext}
-                                multiple
-                                onChange={this.onChangeHandler} />
+                    <div className="offset-md-3 offset-sm-1 offset-1 col-md-6 col-sm-10 col-10">
+                        <div className="form-group">
+                            {this.state.isActive ?
+                                <input
+                                    className="choose__input"
+                                    ref="chouseFile"
+                                    type="file"
+                                    accept={this.state.ext}
+                                    multiple
+                                    onChange={this.onChangeHandler}
+                                /> : <h3 className="upload__header">Choose uploading file type</h3>}
                         </div>
                         <div className="upload__radio">
                             <input type="radio" name="radio" onClick={this.onExtetionHandler} value="image" /> Image<br />
                             <input type="radio" name="radio" onClick={this.onExtetionHandler} value="audio" /> Audio<br />
                         </div>
                         <div className="form-group upload__radio">
-                          Load {this.state.loaded} %
+                            Load {this.state.loaded} %
                         </div>
-                        <div >
-                            <input className="upload__input" ref="description" placeholder="Enter your description" onChange={this.onDescriptionHendler} ></input><br /><div><p></p></div>
+                        <div>
+                            <input className="upload__description" ref="description" placeholder="Enter your description" onChange={this.onDescriptionHendler} ></input><br /><div><p></p></div>
                         </div>
-                        <button type="button" className="btn  btn-block  upload__button" disabled={!this.state.isSelected} onClick={this.onClickHandler}>Upload File</button>
+                        <button type="button" className="btn upload__button" disabled={!this.state.isSelected} onClick={this.onClickHandler}>Upload File</button>
                     </div>
                 </div>
             </div>

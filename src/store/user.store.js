@@ -6,7 +6,7 @@ class UserStore {
     initialState = {
         email: '',
         status: '',
-        login: '',
+        login: sessionStorage.getItem('email'),
         error: '',
     }
 

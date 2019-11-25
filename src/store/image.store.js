@@ -21,7 +21,7 @@ class ImageStore {
     }
 
     @action
-    getImages = (pageNumber, size) => {
+    getImages = (pageNumber, size, cb) => {
         if (pageNumber > 0 && size > 0) {
             imageAPI.getImages(pageNumber, size)
             .then((result) => {
@@ -37,12 +37,15 @@ class ImageStore {
                 this.originalName = result.data.originalName;
                 this.description = result.data.description;
             })
-            .catch((err) => this.err = true);
-        }
+            .catch((err) => {
+                sessionStorage.removeItem('email');
+                cb && cb();
+            });
+        } 
     };
 
     @action
-    updateImage = (index, originalName, name, description) => {
+    updateImage = (index, originalName, name, description, cb) => {
         if(originalName && name && index > -1){
             this.name[index] = name;
             this.description[index] = description;
@@ -56,26 +59,34 @@ class ImageStore {
                 if (result.status === 200) {
                     this.status = result.status;
                 } else {
-                    this.err = true;
+                    sessionStorage.removeItem('email');
+                    cb && cb();
                 }
             })
-            .catch((err) => this.err = true);
+            .catch((err) =>{
+                sessionStorage.removeItem('email');
+                cb && cb();
+            });
         }
     };
 
     @action
-    deleteImage = (index, originalName, pageNumber, size) => {
+    deleteImage = (index, originalName, pageNumber, size, cb) => {
         if(originalName && index > -1 && pageNumber > 0 && size > 0){
             imageAPI.deleteImage(originalName)
             .then((result) => {
                 if (result.status === 200) {
-                    this.getImages(pageNumber,size);
+                    this.getImages(pageNumber, size, cb);
                     this.status = result.status;
                 } else {
-                    this.err = true;
+                    sessionStorage.removeItem('email');
+                    cb && cb();
                 }
             })
-            .catch((err) => this.err = true);
+            .catch((err) => {
+                sessionStorage.removeItem('email');
+                cb && cb();
+            });
         }
     }
 }

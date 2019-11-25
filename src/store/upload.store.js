@@ -23,32 +23,48 @@ class UploadStore {
     }
 
     @action
-    uploadFile = (type, data, cb) => {
+    uploadFile = (type, data, cb, cb2) => {
         this.uploadLoading = true;
         this.loaded = 0;
         switch (type) {
             case "image":
                 imageAPI.uploadImage(data)
                 .then((res) => {
-                    this.loaded = 100;
-                    this.status = res.status;
-                    this.uploadLoading = false;
+                    if(res.error) {
+                        this.err = true;
+                        sessionStorage.removeItem('email');
+                        cb2 && cb2();
+                    } else {
+                        this.loaded = 100;
+                        this.status = res.status;
+                        this.uploadLoading = false;
+                        cb && cb();
+                    }       
                 })
                 .catch((err) => {
                     this.err = true;
-                    cb && cb()
+                    sessionStorage.removeItem('email');
+                    cb2 && cb2();
                 })
                 break;
             case "audio":
                 audioAPI.uploadAudio(data)
                 .then((res) => {
-                    this.loaded = 100;
-                    this.status = res.status;
-                    this.uploadLoading = false;
+                    if(res.error) {
+                        this.err = true;
+                        sessionStorage.removeItem('email');
+                        cb2 && cb2();
+                    } else {
+                        this.loaded = 100;
+                        this.status = res.status;
+                        this.uploadLoading = false;
+                        cb && cb();
+                    }       
                 })
                 .catch((err) => {
                     this.err = true;
-                    cb && cb()
+                    sessionStorage.removeItem('email');
+                    cb2 && cb2();
                 })
                 break;
             default:

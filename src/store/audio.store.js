@@ -22,14 +22,14 @@ class AudioStore {
     }
 
     @action
-    getAudios = (pageNumber, size) => {
+    getAudios = (pageNumber, size, cb) => {
         if (pageNumber > 0 && size > 0) {
             audioAPI.getAudios(pageNumber, size)
             .then((result) => {
                 if (result.data.name.length < 5) {
                     this.disabled = true;
                 } else {
-                this.disabled = false;
+                    this.disabled = false;
                 }
                 this.status = result.status;
                 this.name = result.data.name;
@@ -39,12 +39,15 @@ class AudioStore {
                 this.originalName = result.data.originalName;
                 this.description = result.data.description
             })
-            .catch((err) => this.err = true);
+            .catch((err) => {
+                sessionStorage.removeItem('email');
+                cb && cb();
+            });
         }
     };
 
     @action
-    updateAudio = (index, originalName, name, description) => {
+    updateAudio = (index, originalName, name, description, cb) => {
         if(originalName && name && index > -1){
             this.name[index] = name;
             this.description[index] = description;
@@ -58,15 +61,19 @@ class AudioStore {
                 if (result.status === 200) {
                     this.status = result.status;
                 } else {
-                    this.err = true;
+                    sessionStorage.removeItem('email');
+                    cb && cb();
                 }
             })
-            .catch((err) => this.err = true);
+            .catch((err) => {
+                sessionStorage.removeItem('email');
+                cb && cb();
+            });
         }
     };
 
     @action
-    deleteAudio = (index, originalName, pageNumber, size) => {
+    deleteAudio = (index, originalName, pageNumber, size, cb) => {
         if(originalName && index > -1 && pageNumber > 0 && size > 0){
             audioAPI.deleteAudio(originalName, pageNumber, size)
             .then((result) => {
@@ -74,10 +81,14 @@ class AudioStore {
                     this.getAudios(pageNumber,size);
                     this.status = result.status;
                 } else {
-                    this.err = true;
+                    sessionStorage.removeItem('email');
+                    cb && cb();
                 }
             })
-            .catch((err) => this.err = true);
+            .catch((err) => {
+                sessionStorage.removeItem('email');
+                cb && cb();
+            });
         }
     }
 }

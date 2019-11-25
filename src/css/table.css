@@ -1,0 +1,37 @@
+.table__image {
+    margin: 5px;
+    width: 3vw;
+    height: 5vh;
+}
+
+.table__elem {
+    background-color: #b3b3ff;
+    vertical-align: unset !important ;
+}
+
+.myTable {
+    margin: 0 auto;
+    max-width: 85% !important;
+    background-color: #b3b3ff;
+}
+
+.btn__blue {
+    min-width: 40px;
+    color: white;
+    background-color: #002db3;
+}
+
+.btn__blue:hover {
+    color: white;
+    background-color: #4d4dff;
+}
+
+.btn__red {
+    color: white;
+    background-color: #e60000;
+}
+
+.btn__green {
+    color: white;
+    background-color: #00b300;
+}

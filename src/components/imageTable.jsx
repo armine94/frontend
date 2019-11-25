@@ -1,12 +1,13 @@
+import { ImageStore } from '../store/image.store';
+import { Pagination } from './pagination';
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-import { ImageStore } from '../store/image.store';
-import { Pagination } from './pagination'
-import { MyModal } from './modal'
+import { MyModal } from './modal';
+import '../css/table.css';
 
 @observer
 class ImageTable extends Component {
-    constructor(props) {
+    constructor(props, context) {
         super(props);
         this.state = {
             pageNumber: 1,
@@ -19,7 +20,7 @@ class ImageTable extends Component {
     }
 
     componentDidMount = () => {
-        this.imageStore.getImages(this.state.pageNumber, this.state.size);
+        this.imageStore.getImages(this.state.pageNumber, this.state.size, () => window.location.href = '/');
     }
 
     showModal = (e) => {
@@ -34,14 +35,14 @@ class ImageTable extends Component {
         switch (index) {
             case -1:
                 if (prevPage > 1) {
-                    this.imageStore.getImages(this.state.pageNumber - 1, this.state.size);
+                    this.imageStore.getImages(this.state.pageNumber - 1, this.state.size, () => window.location.href = '/');
                     this.setState({
                         pageNumber: prevPage - 1,
                     })
                 } 
                 break;
             case 1:
-                this.imageStore.getImages(this.state.pageNumber + 1, this.state.size);
+                this.imageStore.getImages(this.state.pageNumber + 1, this.state.size, () => window.location.href = '/');
                 this.setState({
                     pageNumber: prevPage + 1,
                 })
@@ -53,7 +54,7 @@ class ImageTable extends Component {
 
     deleteField = (e) => {
         const { originalName } = this.imageStore;
-        this.imageStore.deleteImage(e.target.value, originalName[e.target.value], this.state.pageNumber, this.state.size);
+        this.imageStore.deleteImage(e.target.value, originalName[e.target.value], this.state.pageNumber, this.state.size, () => window.location.href = '/');
     }
 
     drawFields = () => {
@@ -83,10 +84,10 @@ class ImageTable extends Component {
                             <td className="table__elem">{item.ImageWidth}</td>
                             <td className="table__elem">{item.ImageHeight}</td>
                             <td className="table__elem">{description[index]}</td>
-                            <td scope="col" className="d-flex justify-content-around table__elem">
-                                <button className="btn btn-success" value={index} onClick={this.showModal} >Edit</button>
+                            <td scope="col" className="table__elem">
+                                <button className="btn btn__green" value={index} onClick={this.showModal} >Edit</button>
                                 <MyModal onClose={this.showModal} fileType='image' show={this.state.show} index={this.state.index} originalName={originalName[this.state.index]} name={name[this.state.index]} description={description[this.state.index]}></MyModal>
-                                <button className="btn btn-danger" value={index} onClick={this.deleteField}>Delete</button>
+                                <button className="btn btn__red" value={index} onClick={this.deleteField}>Delete</button>
                             </td>
                         </tr>
                     </tbody>
@@ -98,9 +99,9 @@ class ImageTable extends Component {
     render() {
         return (
             <div>
-                <table className="table table-bordered">
+                <table className="table table-bordered myTable">
                     <thead className="text-center">
-                        <tr>
+                        <tr className="table__elem">
                             {this.drawFields()}
                         </tr>
                     </thead>

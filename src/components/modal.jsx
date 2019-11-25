@@ -2,6 +2,7 @@ import Modal from 'react-modal';
 import React, { Component } from 'react';
 import { ImageStore } from '../store/image.store';
 import { AudioStore } from '../store/audio.store';
+import '../css/modal.css';
 
 class MyModal extends Component {
     constructor(props) {
@@ -66,32 +67,32 @@ class MyModal extends Component {
             <Modal contentLabel="modalA" ariaHideApp={false} isOpen={true}  >
                 <div className="container-fluid modal__bg">
                     <div className='modal__content'>
-                        <div className="row modal__margin">
-                            <h4 className="modal__header">
-                                Name
-                        </h4>
-                            <h4 className="modal__header">
-                                Description
-                        </h4>
-
+                        <div className="row">
+                            <div className="col-md-6 col-sm-10">
+                                <h4 className="modal__header">
+                                    Name
+                                </h4>
+                                <input className="modal__input"
+                                    placeholder="name"
+                                    onChange={this.onChange("name")}
+                                    value={this.state.name || this.props.name}
+                                />
+                            </div>
+                            <div className="col-md-6 col-sm-10">
+                                <h4 className="modal__header">
+                                    Description
+                                </h4>
+                                <input className="modal__input"
+                                    placeholder="description"
+                                    onChange={this.onChange("description")}
+                                    value={this.state.description || this.props.description}
+                                />
+                            </div>
                         </div>
-                        <div className="modal__margin" >
-                            <input className="modal__input"
-                                placeholder="name"
-                                onChange={this.onChange("name")}
-                                value={this.state.name || this.props.name}
-                            />
-                            <input className="modal__input"
-                                placeholder="description"
-                                onChange={this.onChange("description")}
-                                value={this.state.description || this.props.description}
-                            />
+                        <div className="row modal__button" >
+                            <button className="modal__button btn btn__blue" onClick={this.onUpdate} > Save </button>
+                            <button className="modal__button btn btn__blue" onClick={this.onClose}> Close </button>
                         </div>
-                        <div >
-                            <button className="modal__save btn btn-info" onClick={this.onUpdate} > Save </button>
-                            <button className="modal__close btn btn-info" onClick={this.onClose}> Close </button>
-                        </div>
-
                     </div>
                 </div>
             </Modal>

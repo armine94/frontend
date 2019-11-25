@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { UserStore } from '../store/user.store';
+import '../css/login.css';
 
 @observer
 class Login extends Component {
@@ -36,10 +37,9 @@ class Login extends Component {
 
     render() {
         return (
-            <div className="container-fluid" id="container" >
+            <div className="container-fluid">
                 <div className="row">
                     <div className="bg-img">
-
                         <form className='login' onSubmit={this.handleSubmit}>
                             <div className='login__title'>
                                 <h2 >Login</h2>
@@ -65,7 +65,7 @@ class Login extends Component {
                             <div className="form-group">
                                 <button type="submit" className="btn btn-primary login__submit" >
                                     Login
-                            </button>
+                                </button>
                             </div>
                         </form>
                     </div>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { ImageTable } from './imageTable';
 import { AudioTable } from './audioTable';
+import '../css/table.css';
 
 class View extends Component {
     constructor(props) {
@@ -30,22 +31,14 @@ class View extends Component {
     render() {
         return (
             <div>
-                <table className="table table-bordered">
-                    <thead className="text-center">
-                        <tr>
+                <table className="table table-bordered myTable">
+                    <thead className="text-center ">
+                        <tr className="table__field">
                             <th scope="col">
+                                <button type="button" className="btn btn__blue" onClick={this.changeFileType("image")}>Image</button>
                             </th>
                             <th scope="col">
-                                <button type="button" className="btn btn-info" onClick={this.changeFileType("image")}>Image</button>
-                            </th>
-                            <th scope="col">
-                                <button type="button" className="btn btn-info" onClick={this.changeFileType("video")}>Video</button>
-                            </th>
-                            <th scope="col">
-                                <button type="button" className="btn btn-info" onClick={this.changeFileType("audio")}>Audio</button>
-                            </th>
-                            <th scope="col">
-                                <button type="button" className="btn btn-info" onClick={this.changeFileType("text")}>Text</button>
+                                <button type="button" className="btn btn__blue" onClick={this.changeFileType("audio")}>Audio</button>
                             </th>
                         </tr>
                     </thead>

@@ -45,7 +45,7 @@ Open [http://localhost:5000] to view it in the browser.
 |  |  ├── paths.js - Paths configuration
 |  |  ├── webpack.config.js - webpack configuration 
 |  |  └── webpackDevServer.config.js - webpack dev server configuration
-|  ├── public - Contains main index.js files.
+|  ├── public - Contains main index.js files and logo.
 |  ├── scripts - Contains scripts for start , build or test .
 |  |  ├──  build.js - create program for production mode
 |  |  └──  start.js - start program

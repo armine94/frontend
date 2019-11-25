@@ -1,10 +1,10 @@
+import { UserStore } from '../store/user.store';
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-import { UserStore } from '../store/user.store';
+import '../css/registration.css';
 
 @observer
 class Register extends Component {
-
     constructor() {
         super();
         this.state = {
@@ -40,7 +40,7 @@ class Register extends Component {
         return (
             <div className="container-fluid " id="container">
                 <div className="row">
-                    <div className="offset-md-2 col-md-2">
+                    <div className="offset-md-4 offset-sm-3 offset-3 col-md-4 col-sm-6 col-6 ">
                         <h2 className='register__title'>Registration</h2>
                         <form className="register" onSubmit={this.handleSubmit}>
                             <div className="form-group">
@@ -81,7 +81,7 @@ class Register extends Component {
                             </div>
                             <div className="form-group">
                                 <button type="submit" className="btn btn-primary register__submit">
-                                    Register User
+                                    Register
                                 </button>
                             </div>
                         </form>

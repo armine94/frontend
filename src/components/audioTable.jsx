@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { AudioStore } from '../store/audio.store';
 import { Pagination } from './pagination'
-import { MyModal } from './modal'
+import { MyModal } from './modal';
+import '../css/table.css';
 
 @observer
 class AudioTable extends Component {
@@ -20,7 +21,7 @@ class AudioTable extends Component {
     }
 
     componentDidMount = () => {
-        this.audioStore.getAudios(this.state.pageNumber, this.state.size);
+        this.audioStore.getAudios(this.state.pageNumber, this.state.size, () => window.location.href = '/');
     }
 
     showModal = (e) => {
@@ -35,14 +36,14 @@ class AudioTable extends Component {
         switch (index) {
             case -1:
                 if (prevPage > 1) {
-                    this.audioStore.getAudios(this.state.pageNumber - 1, this.state.size);
+                    this.audioStore.getAudios(this.state.pageNumber - 1, this.state.size, () => window.location.href = '/');
                     this.setState({
                         pageNumber: prevPage - 1,
                     })
                 }
                 break;
             case 1:
-                this.audioStore.getAudios(this.state.pageNumber + 1, this.state.size);
+                this.audioStore.getAudios(this.state.pageNumber + 1, this.state.size,() => window.location.href = '/');
                 this.setState({
                     pageNumber: prevPage + 1,
                 })
@@ -53,7 +54,7 @@ class AudioTable extends Component {
 
     deleteField = (e) => {
         const { originalName } = this.audioStore;
-        this.audioStore.deleteAudio(e.target.value, originalName[e.target.value], this.state.pageNumber, this.state.size);
+        this.audioStore.deleteAudio(e.target.value, originalName[e.target.value], this.state.pageNumber, this.state.size, () => window.location.href = '/');
     }
 
     drawFields = () => {
@@ -82,9 +83,9 @@ class AudioTable extends Component {
                             <td className="table__elem">{item.FileSize} Kb</td>
                             <td className="table__elem">{description[index]}</td>
                             <td scope="col" className="d-flex justify-content-around table__elem">
-                                <button className="btn btn-success" value={index} onClick={this.showModal} >Edit</button>
+                                <button className="btn btn__green" value={index} onClick={this.showModal} >Edit</button>
                                 <MyModal fileType='audio' onClose={this.showModal} show={this.state.show} index={this.state.index} originalName={originalName[this.state.index]} name={name[this.state.index]} description={description[this.state.index]}></MyModal>
-                                <button className="btn btn-danger" value={index} onClick={this.deleteField}>Delete</button>
+                                <button className="btn btn__red" value={index} onClick={this.deleteField}>Delete</button>
                             </td>
                         </tr>
                     </tbody>
@@ -96,9 +97,9 @@ class AudioTable extends Component {
     render() {
         return (
             <div>
-                <table className="table table-bordered">
+                <table className="table table-bordered myTable">
                     <thead className="text-center">
-                        <tr>
+                        <tr className="table__elem">
                             {this.drawFields()}
                         </tr>
                     </thead>
