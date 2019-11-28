@@ -3,18 +3,21 @@ import { audioAPI } from '../DAO/audio.DAO';
 
 let instance = null
 class AudioStore {
+    initialState = {
+        originalName: '',
+        status: '',
+        metadata: '',
+        description: '',
+        imageUrl: '',
+        audioUrl: '',
+        name: '',
+        err: false,
+        author: '',
+        disabled: false,
+    }
+
     constructor() {
-        extendObservable(this, {
-            originalName: '',
-            status: '',
-            metadata: '',
-            description: '',
-            imageUrl: '',
-            audioUrl: '',
-            name: '',
-            err: false,
-            disabled: false
-        });
+        extendObservable(this, this.initialState);
         if (!instance) {
             instance = this;
         }
@@ -26,18 +29,21 @@ class AudioStore {
         if (pageNumber > 0 && size > 0) {
             audioAPI.getAudios(pageNumber, size)
             .then((result) => {
-                if (result.data.name.length < 5) {
-                    this.disabled = true;
-                } else {
-                    this.disabled = false;
+                if(!result.data.error) {
+                    if (result.data.name.length < 5) {
+                        this.disabled = true;
+                    } else {
+                        this.disabled = false;
+                    }
+                    this.status = result.status;
+                    this.name = result.data.name;
+                    this.author = result.data.author;
+                    this.imageUrl = result.data.imageUrl;
+                    this.audioUrl = result.data.audioUrl;
+                    this.metadata = result.data.metadatas;
+                    this.description = result.data.description;
+                    this.originalName = result.data.originalName;
                 }
-                this.status = result.status;
-                this.name = result.data.name;
-                this.imageUrl = result.data.imageUrl;
-                this.audioUrl = result.data.audioUrl;
-                this.metadata = result.data.metadatas;
-                this.originalName = result.data.originalName;
-                this.description = result.data.description
             })
             .catch((err) => {
                 sessionStorage.removeItem('email');
@@ -48,21 +54,19 @@ class AudioStore {
 
     @action
     updateAudio = (index, originalName, name, description, cb) => {
-        if(originalName && name && index > -1){
+        if(originalName && name && index > -1 && this.author[index] == sessionStorage.getItem('email')){
             this.name[index] = name;
             this.description[index] = description;
             const data = {
-                originalName: originalName,
                 newName: name,
+                author: this.author[index],
+                originalName: originalName,
                 newdescription: description,
             }
             audioAPI.updateAudio(data)
             .then((result) => {
-                if (result.status === 200) {
+                if (!result.error) {
                     this.status = result.status;
-                } else {
-                    sessionStorage.removeItem('email');
-                    cb && cb();
                 }
             })
             .catch((err) => {
@@ -74,15 +78,12 @@ class AudioStore {
 
     @action
     deleteAudio = (index, originalName, pageNumber, size, cb) => {
-        if(originalName && index > -1 && pageNumber > 0 && size > 0){
-            audioAPI.deleteAudio(originalName, pageNumber, size)
+        if(originalName && index > -1 && pageNumber > 0 && size > 0 && this.author[index] == sessionStorage.getItem('email')){
+            audioAPI.deleteAudio(originalName, this.author[index])
             .then((result) => {
-                if (result.status === 200) {
-                    this.getAudios(pageNumber,size);
+                if (!result.error) {
+                    this.getAudios(pageNumber,size, cb);
                     this.status = result.status;
-                } else {
-                    sessionStorage.removeItem('email');
-                    cb && cb();
                 }
             })
             .catch((err) => {
@@ -93,4 +94,4 @@ class AudioStore {
     }
 }
 
-export { AudioStore };
+export { AudioStore }

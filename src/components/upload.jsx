@@ -91,7 +91,7 @@ class Upload extends Component {
         const data = new FormData()
         data.append('file', this.state.selectedFile[0]);
         data.append("description", this.state.description);
-        this.uploadStore.uploadFile(this.state.type, data, () => this.props.history.push('/upload'), () => window.location.href = '/');
+        this.uploadStore.uploadFile(this.state.type, data, () => window.location.href = '/');
         this.setState({
             loaded: 100,
             isSelected: false

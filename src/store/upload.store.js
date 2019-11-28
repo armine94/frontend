@@ -23,7 +23,7 @@ class UploadStore {
     }
 
     @action
-    uploadFile = (type, data, cb, cb2) => {
+    uploadFile = (type, data, cb) => {
         this.uploadLoading = true;
         this.loaded = 0;
         switch (type) {
@@ -33,20 +33,15 @@ class UploadStore {
                     if(res.error) {
                         this.err = true;
                         sessionStorage.removeItem('email');
-                        cb2 && cb2();
+                        cb && cb();
                     } else {
                         this.loaded = 100;
-                        // this.status = res.status;
-                        // this.uploadLoading = false;
-                        // cb && cb();
                     }       
                 })
                 .catch((err) => {
                     this.err = true;
                     sessionStorage.removeItem('email');
-                    console.log(cb2);
-                    
-                    cb2 && cb2();
+                    cb && cb();
                 })
                 break;
             case "audio":
@@ -55,18 +50,17 @@ class UploadStore {
                     if(res.error) {
                         this.err = true;
                         sessionStorage.removeItem('email');
-                        cb2 && cb2();
+                        cb && cb();
                     } else {
                         this.loaded = 100;
                         this.status = res.status;
                         this.uploadLoading = false;
-                        cb && cb();
                     }       
                 })
                 .catch((err) => {
                     this.err = true;
                     sessionStorage.removeItem('email');
-                    cb2 && cb2();
+                    cb && cb();
                 })
                 break;
             default:
