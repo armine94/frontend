@@ -48,10 +48,10 @@ class MyModal extends Component {
     onUpdate = (e) => {
         switch (this.props.fileType) {
             case 'image':
-                this.imageStore.updateImage(this.props.index, this.props.originalName, this.state.name || this.props.name, this.state.description || this.props.description)
+                this.imageStore.updateImage(this.props.index, this.props.originalName, this.state.name || this.props.name, this.state.description || this.props.description, () => window.location.href = '/');
                 break;
             case 'audio':
-                this.audioStore.updateAudio(this.props.index, this.props.originalName, this.state.name || this.props.name, this.state.description || this.props.description)
+                this.audioStore.updateAudio(this.props.index, this.props.originalName, this.state.name || this.props.name, this.state.description || this.props.description, () => window.location.href = '/');
                 break;
             default:
                 break;

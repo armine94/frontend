@@ -11,7 +11,6 @@ class AudioTable extends Component {
         super(props);
         this.audioStore = new AudioStore();
         this.state = {
-            name: this.audioStore.name,
             pageNumber: 1,
             show: true,
             size: 5,

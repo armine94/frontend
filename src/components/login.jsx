@@ -42,7 +42,7 @@ class Login extends Component {
                     <div className="bg-img">
                         <form className='login' onSubmit={this.handleSubmit}>
                             <div className='login__title'>
-                                <h2 >Login</h2>
+                                <h2>Login</h2>
                             </div>
                             <div className="form-group">
                                 <input className="login__input"

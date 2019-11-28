@@ -38,7 +38,7 @@ class Register extends Component {
 
     render() {
         return (
-            <div className="container-fluid " id="container">
+            <div className="container-fluid">
                 <div className="row">
                     <div className="offset-md-4 offset-sm-3 offset-3 col-md-4 col-sm-6 col-6 ">
                         <h2 className='register__title'>Registration</h2>

@@ -57,14 +57,19 @@ class ImageStore {
             imageAPI.updateImage(data)
             .then((result) => {
                 if (result.status === 200) {
+                    alert(2)
                     this.status = result.status;
                 } else {
                     sessionStorage.removeItem('email');
+                    alert(3)
                     cb && cb();
                 }
             })
-            .catch((err) =>{
+            .catch((err) => {
+                alert(1)
                 sessionStorage.removeItem('email');
+                console.log(cb);
+                
                 cb && cb();
             });
         }
@@ -85,6 +90,8 @@ class ImageStore {
             })
             .catch((err) => {
                 sessionStorage.removeItem('email');
+                console.log(cb);
+                
                 cb && cb();
             });
         }

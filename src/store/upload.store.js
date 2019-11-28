@@ -36,14 +36,16 @@ class UploadStore {
                         cb2 && cb2();
                     } else {
                         this.loaded = 100;
-                        this.status = res.status;
-                        this.uploadLoading = false;
-                        cb && cb();
+                        // this.status = res.status;
+                        // this.uploadLoading = false;
+                        // cb && cb();
                     }       
                 })
                 .catch((err) => {
                     this.err = true;
                     sessionStorage.removeItem('email');
+                    console.log(cb2);
+                    
                     cb2 && cb2();
                 })
                 break;
