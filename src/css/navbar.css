@@ -1,0 +1,20 @@
+.navbar__content{
+    justify-content: flex-end!important;
+}
+
+.nav__link{
+    padding: 0.5rem 0.3rem;
+}
+
+
+.btn__default{
+    background-color: #fff;
+    border: 1px solid #014c5f!important;
+    color:black;
+}
+
+.btn__default:hover{
+    background-color: #007e9e!important;
+    border: 1px solid #007e9e!important;
+    color: #fff;
+}

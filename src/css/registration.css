@@ -1,0 +1,40 @@
+.register__title {
+    text-align: center;
+    justify-content: center !important;
+    margin:25px auto;
+    color: white;
+    text-shadow: 2px 2px 2px gray, 0 0 25px gray, 0 0 5px gray
+}
+
+.register__label {
+    justify-content: center !important;
+    text-align: center;
+    color: white;
+    font-size: 20px;
+}
+
+.register__input {
+    justify-content: center !important;
+    text-align: center;
+    background-color: white;
+    min-width: 100% !important;
+    text-align: center;
+    box-shadow: 5px 5px 5px grey;
+    border-radius: 13px;
+}
+
+.register__gender {
+    text-align: center;
+    min-width: 60% !important;
+    text-align: center;
+    color: white;
+}
+
+.register__submit {
+    min-width: 100% !important;
+    font-size: 20px;
+    padding: 0 65px !important;
+    border-radius: 13px;
+    text-align: center;
+    box-shadow: 5px 5px 5px grey; 
+}
