@@ -52,7 +52,6 @@ Open [http://localhost:5000] to view it in the browser.
 |  ├── src - Contains all components and logic files.
 |  |  ├── components - All components for this project.
 |  |  |  ├──  audioTable.jsx - show audio file, edit, delete.  
-|  |  |  ├──  home.jsx - show home page.
 |  |  |  ├──  imageTable.jsx - show image file, edit, delete. 
 |  |  |  ├──  login.jsx - login user.
 |  |  |  ├──  modal.jsx - show edit modal. 
@@ -63,6 +62,16 @@ Open [http://localhost:5000] to view it in the browser.
 |  |  |  └──  view.jsx - show file
 |  |  ├── config - Contains all project config.
 |  |  |  └──  config.js - Api configuration for send and get data
+|  |  ├── css - Contains all css files.
+|  |  |  ├── login.css
+|  |  |  ├── modal.css
+|  |  |  ├── navbar.css
+|  |  |  ├── pagination.css
+|  |  |  ├── registration.css
+|  |  |  ├── table.css
+|  |  |  └── upload.css
+|  |  ├── images - Mobx store for all components.
+|  |  |  └── bg.jpg - background image
 |  |  ├──  DAO Sending requests .
 |  |  |  ├──  audio.DAO.js - Add, get, update, delete audio file requests
 |  |  |  ├──  image.DAO.js - Add, get, update, delete image file requests

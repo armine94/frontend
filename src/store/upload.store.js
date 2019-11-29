@@ -53,8 +53,6 @@ class UploadStore {
                         cb && cb();
                     } else {
                         this.loaded = 100;
-                        this.status = res.status;
-                        this.uploadLoading = false;
                     }       
                 })
                 .catch((err) => {

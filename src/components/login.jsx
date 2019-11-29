@@ -7,13 +7,14 @@ import '../css/login.css';
 class Login extends Component {
     constructor() {
         super();
+        this.userStore = new UserStore();
         this.state = {
             email: '',
             password: '',
+            error: this.userStore.error ? "error__true" : "error__false" 
         }
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.userStore = new UserStore();
     }
 
     handleInputChange(e) {
@@ -32,15 +33,20 @@ class Login extends Component {
     }
 
     loginUser = (user) => {
-        this.userStore.loginUser(user, () => this.props.history.push('/upload'));
+        this.userStore.loginUser(user, () => this.props.history.push('/upload'), () => this.setState({
+            error: this.userStore.error ? "error__true" : "error__false" 
+        }));
     }
 
     render() {
         return (
             <div className="container-fluid">
                 <div className="row">
-                    <div className="bg-img">
+                    <div className="bg-img offset-md-4 col-md-4 offset-sm-3 col-sm-6 offset-2 col-8">
                         <form className='login' onSubmit={this.handleSubmit}>
+                            <div className={this.state.error}>
+                                <h6>Login failed. Incorrect email or password</h6>
+                            </div>
                             <div className='login__title'>
                                 <h2>Login</h2>
                             </div>
@@ -62,6 +68,7 @@ class Login extends Component {
                                     value={this.state.password}
                                 />
                             </div>
+
                             <div className="form-group">
                                 <button type="submit" className="btn btn-primary login__submit" >
                                     Login

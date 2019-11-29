@@ -51,13 +51,10 @@ class ImageStore {
 
     @action
     updateImage = (index, originalName, name, description, cb) => {
-        if(originalName && name && index > -1 && this.author[index] == sessionStorage.getItem('email')){
-            this.name[index] = name;
-            this.description[index] = description;
+        if(originalName && name && index > -1){
             const data = {
                 newdescription: description,
                 originalName: originalName,
-                author: this.author[index],
                 newName: name,
             }
             imageAPI.updateImage(data)
@@ -75,7 +72,7 @@ class ImageStore {
 
     @action
     deleteImage = (index, originalName, pageNumber, size, cb) => {
-        if(originalName && index > -1 && pageNumber > 0 && size > 0 && this.author[index] == sessionStorage.getItem('email')){
+        if(originalName && index > -1 && pageNumber > 0 && size > 0){
             imageAPI.deleteImage(originalName, this.author[index])
             .then((result) => {
                 if (!result.error) {
@@ -91,4 +88,4 @@ class ImageStore {
     }
 }
 
-export { ImageStore }
+export { ImageStore };

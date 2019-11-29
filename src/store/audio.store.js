@@ -37,7 +37,6 @@ class AudioStore {
                     }
                     this.status = result.status;
                     this.name = result.data.name;
-                    this.author = result.data.author;
                     this.imageUrl = result.data.imageUrl;
                     this.audioUrl = result.data.audioUrl;
                     this.metadata = result.data.metadatas;
@@ -54,12 +53,11 @@ class AudioStore {
 
     @action
     updateAudio = (index, originalName, name, description, cb) => {
-        if(originalName && name && index > -1 && this.author[index] == sessionStorage.getItem('email')){
+        if(originalName && name && index > -1){
             this.name[index] = name;
             this.description[index] = description;
             const data = {
                 newName: name,
-                author: this.author[index],
                 originalName: originalName,
                 newdescription: description,
             }
@@ -78,8 +76,8 @@ class AudioStore {
 
     @action
     deleteAudio = (index, originalName, pageNumber, size, cb) => {
-        if(originalName && index > -1 && pageNumber > 0 && size > 0 && this.author[index] == sessionStorage.getItem('email')){
-            audioAPI.deleteAudio(originalName, this.author[index])
+        if(originalName && index > -1 && pageNumber > 0){
+            audioAPI.deleteAudio(originalName)
             .then((result) => {
                 if (!result.error) {
                     this.getAudios(pageNumber,size, cb);
@@ -94,4 +92,4 @@ class AudioStore {
     }
 }
 
-export { AudioStore }
+export { AudioStore };

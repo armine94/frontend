@@ -7,7 +7,7 @@ class UserStore {
         email: '',
         status: '',
         login: sessionStorage.getItem('email'),
-        error: '',
+        error: false,
     }
 
     constructor () {
@@ -28,10 +28,10 @@ class UserStore {
     }
 
     @action
-    loginUser = (user, cb) => {
+    loginUser = (user, cb, cb2) => {
         userAPI.loginUser(user)
         .then((res) => {
-            if(res.status === 200) {
+            if(!res.data.error) {
                 this.login = true;
                 this.status = res.status;
                 this.email = res.data.email;
@@ -39,9 +39,12 @@ class UserStore {
                 cb && cb();
             } else {
                 this.status = res.status;
+                this.error = true;
+                cb2 && cb2();
+
             }
         })
-        .catch((error) => this.error = error);
+        .catch((error) => this.error = true);
     }
     
     @action
@@ -54,7 +57,7 @@ class UserStore {
                 this.email = "";
             }
         })
-        .catch((error) => this.error = error);
+        .catch((error) => this.error = true);
     }
 }
 
