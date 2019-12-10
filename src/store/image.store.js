@@ -28,7 +28,7 @@ class ImageStore {
 
     @action
     getImages = (pageNumber, size, cb) => {
-        if (pageNumber > this.zero && size > this.zero) {
+        if (pageNumber >= this.zero && size > this.zero) {
             this.currentPage = pageNumber;
             imageAPI.getImages(pageNumber, size)
             .then((result) => {
@@ -58,7 +58,7 @@ class ImageStore {
 
     @action
     updateImage = (index, originalName, description, cb) => {
-        if(originalName && index >= this.zero && this.author[index] === sessionStorage.getItem('email')){
+        if(originalName && index >= this.zero && this.author[index] === sessionStorage.getItem('email')){alert;
             this.description[index] = description;
             const data = {
                 newdescription: description,
@@ -81,7 +81,7 @@ class ImageStore {
 
     @action
     deleteImage = (index, originalName, pageNumber, size, cb) => {
-        if(originalName && index >= this.zero && pageNumber > this.zero && size > this.zero && this.author[index] === sessionStorage.getItem('email')){
+        if(originalName && index >= this.zero && pageNumber >= this.zero && size >= this.zero && this.author[index] === sessionStorage.getItem('email')){
             imageAPI.deleteImage(originalName, this.author[index])
             .then((result) => {
                 if (!result.error) {

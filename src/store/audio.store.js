@@ -30,7 +30,7 @@ class AudioStore {
 
     @action
     getAudios = (pageNumber, size, cb) => {
-        if (pageNumber > this.zero && size > this.zero) {
+        if (pageNumber >= this.zero && size > this.zero) {
             this.currentPage = pageNumber;
             audioAPI.getAudios(pageNumber, size)
             .then((result) => {
@@ -84,7 +84,7 @@ class AudioStore {
 
     @action
     deleteAudio = (index, originalName, pageNumber, size, cb) => {
-        if(originalName && index >= this.zero && pageNumber > this.zero && size > this.zero && this.author[index] === sessionStorage.getItem('email')){
+        if(originalName && index >= this.zero && pageNumber >= this.zero && size > this.zero && this.author[index] === sessionStorage.getItem('email')){
             audioAPI.deleteAudio(originalName, this.author[index])
             .then((result) => {
                 if (!result.error) {

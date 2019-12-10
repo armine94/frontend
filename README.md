@@ -90,6 +90,7 @@ Open [http://localhost:5000] to view it in the browser.
 |  |  ├── app.js - Start .
 |  |  └── index.js - App component render this.
 ├── .babelrc
+├── .eslintrc
 ├── .gitignore
 ├── package-lock.json
 ├── package.json

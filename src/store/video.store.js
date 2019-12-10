@@ -32,7 +32,7 @@ class VideoStore {
 
     @action
     getVideos = (pageNumber, size, cb) => {
-        if (pageNumber > this.zero && size > this.zero) {
+        if (pageNumber >= this.zero && size > this.zero) {
             this.currentPage = pageNumber;
             videoAPI.getVideos(pageNumber, size)
             .then((result) => {
@@ -85,7 +85,7 @@ class VideoStore {
 
     @action
     deleteVideo = (index, originalName, pageNumber, size, cb) => {
-        if(originalName && index >= this.zero && pageNumber > this.zero && size > this.zero && this.author[index] === sessionStorage.getItem('email')){
+        if(originalName && index >= this.zero && pageNumber >= this.zero && size > this.zero && this.author[index] === sessionStorage.getItem('email')){
             videoAPI.deleteVideo(originalName, this.author[index])
             .then((result) => {
                 if (!result.error) {
