@@ -1,0 +1,27 @@
+.modal__bg{
+    background-color: #00000038;
+    overflow-x: auto;
+    position: fixed;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 100px;
+}
+
+.edit {
+    float: right !important;
+}
+
+.button {
+    font-size: 15px;
+}
+
+.button__cancel {
+    margin-left: 5px;
+}
+
+.button__cancel:hover{
+    margin-left: 5px;
+    background-color: #a8cfff;
+}
